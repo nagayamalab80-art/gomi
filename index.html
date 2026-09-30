@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ごみの日">
+<meta name="theme-color" content="#0a5560">
+<title>ごみの日(北茨城・高萩)</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --z:1;
+  --bg:#f2f5f3;--fg:#13201a;--muted:#56645b;--card:#ffffff;--line:#dce4de;
+  --burn:#a83800;--burn-bg:#ffe5d3;
+  --nb:#0f4f9c;--nb-bg:#dfecfb;
+  --res:#17692c;--res-bg:#d9f2e0;
+  --pet:#00606e;--pet-bg:#d3f0f4;
+  --bin:#7a4f00;--bin-bg:#fdebc8;
+  --big:#5b22a8;--big-bg:#ece1fa;
+  --haz:#a4190f;--haz-bg:#fde3e0;
+  --carry:#3d4650;--carry-bg:#e6e9ed;
+  --ng:#6a3512;--ng-bg:#f3e3d6;
+  --sat:#1558a8;--sun:#b3261e;
+  --accent:#0b6b5c;--accent-fg:#ffffff;
+  --h1:#0a5560;--h2:#1f8a4f;
+  --warn-bg:#fff3bf;--warn:#6b4e00;
+  --shadow:0 10px 26px -10px rgba(10,40,25,.35);
+  --shadow-s:0 4px 14px -6px rgba(10,40,25,.25);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1311;--fg:#f2f7f4;--muted:#a4b3aa;--card:#16201c;--line:#26342d;
+    --burn:#ffb98a;--burn-bg:#4a2d18;
+    --nb:#9ccfff;--nb-bg:#19304a;
+    --res:#8fe5a1;--res-bg:#173a25;
+    --pet:#7fdcec;--pet-bg:#143b44;
+    --bin:#ffd27a;--bin-bg:#45340f;
+    --big:#d3b5ff;--big-bg:#35244f;
+    --haz:#ffa8a0;--haz-bg:#4d2321;
+    --carry:#d3dae2;--carry-bg:#2a313a;
+    --ng:#f2c9aa;--ng-bg:#3d2b1f;
+    --sat:#8cc8ff;--sun:#ff9b94;
+    --accent:#4fd1b5;--accent-fg:#04231c;
+    --h1:#06343b;--h2:#0f5d36;
+    --warn-bg:#4a3c0a;--warn:#ffe89a;
+    --shadow:0 10px 26px -10px rgba(0,0,0,.7);--shadow-s:0 4px 14px -6px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1311;--fg:#f2f7f4;--muted:#a4b3aa;--card:#16201c;--line:#26342d;
+  --burn:#ffb98a;--burn-bg:#4a2d18;--nb:#9ccfff;--nb-bg:#19304a;--res:#8fe5a1;--res-bg:#173a25;
+  --pet:#7fdcec;--pet-bg:#143b44;--bin:#ffd27a;--bin-bg:#45340f;--big:#d3b5ff;--big-bg:#35244f;
+  --haz:#ffa8a0;--haz-bg:#4d2321;--carry:#d3dae2;--carry-bg:#2a313a;--ng:#f2c9aa;--ng-bg:#3d2b1f;
+  --sat:#8cc8ff;--sun:#ff9b94;--accent:#4fd1b5;--accent-fg:#04231c;--h1:#06343b;--h2:#0f5d36;
+  --warn-bg:#4a3c0a;--warn:#ffe89a;--shadow:0 10px 26px -10px rgba(0,0,0,.7);--shadow-s:0 4px 14px -6px rgba(0,0,0,.6);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-size:18px;line-height:1.55;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif}
+button{font-family:inherit;color:inherit;-webkit-tap-highlight-color:transparent;transition:transform .08s ease,filter .08s ease}
+button:active,summary:active{transform:scale(.97);filter:brightness(.94)}
+.wrap{max-width:560px;margin:0 auto;padding:12px 16px 56px;zoom:var(--z)}
+.small{font-size:16px;color:var(--muted)}
+.c-center{text-align:center}
+
+/* ===== ホーム: 上の帯 ===== */
+.hero{margin:-12px -16px 0;padding:16px 16px 62px;border-radius:0 0 34px 34px;text-align:center;color:#fff;
+  background:linear-gradient(155deg,var(--h1) 0%,var(--h2) 100%);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.07)}
+.hero::after{content:"";position:absolute;left:-80px;bottom:-90px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.hero>*{position:relative;z-index:1}
+.place{display:inline-flex;align-items:center;justify-content:center;gap:8px;max-width:100%;min-height:50px;
+  background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.7);border-bottom-width:4px;border-radius:999px;padding:8px 20px;font-size:19px;font-weight:900}
+.place .pe{font-size:14px;opacity:.9}
+.hero .k{margin-top:16px;font-size:20px;font-weight:800;letter-spacing:.2em;opacity:.92}
+.hero .date{font-size:62px;font-weight:900;line-height:1.08;letter-spacing:.01em;margin-top:2px}
+.hero .wdp{display:inline-block;margin-top:8px;background:#fff;color:var(--fg);font-size:28px;font-weight:900;border-radius:999px;padding:2px 26px;line-height:1.35}
+.hero .wdp.sat{color:var(--sat)}.hero .wdp.sun{color:var(--sun)}
+.hero .y{margin-top:8px;font-size:15px;opacity:.85}
+:root[data-theme="dark"] .hero .wdp,:root:not([data-theme="light"]) .hero .wdp{background:rgba(255,255,255,.92);color:#13201a}
+
+/* ===== きょう/あした のごみ ===== */
+.stack{position:relative;margin-top:-40px}
+.panel{display:block;border-radius:28px;margin-top:12px;overflow:hidden;box-shadow:var(--shadow)}
+.panel.burn{background:var(--burn-bg);color:var(--burn)}
+.panel.nb{background:var(--nb-bg);color:var(--nb)}
+.panel.res{background:var(--res-bg);color:var(--res)}
+.panel.pet{background:var(--pet-bg);color:var(--pet)}
+.panel.bin{background:var(--bin-bg);color:var(--bin)}
+.panel>summary{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:20px 16px 16px;list-style:none;cursor:pointer}
+.panel>summary::-webkit-details-marker{display:none}
+.panel .ic{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:rgba(255,255,255,.78);font-size:46px;line-height:1;box-shadow:0 4px 12px -4px rgba(0,0,0,.25)}
+.panel .lb{font-size:36px;font-weight:900;line-height:1.25;margin-top:4px}
+.panel .mm{font-size:17px;font-weight:700;line-height:1.45}
+.panel .more{display:block;width:100%;margin-top:8px;background:rgba(255,255,255,.85);border:2px solid currentColor;border-bottom-width:5px;border-radius:999px;padding:10px 12px;font-size:20px;font-weight:900}
+.panel .more .m2{display:none}
+.panel[open] .more .m1{display:none}
+.panel[open] .more .m2{display:inline}
+.panel .dbody{margin:0 14px 14px;background:var(--card);color:var(--fg);border-radius:18px;padding:14px 16px;font-size:18px;line-height:1.7;font-weight:500;text-align:left}
+.panel .dbody b{display:block;margin-top:10px}
+.panel .dbody b:first-child{margin-top:0}
+.panel .dbody .ng{margin-top:12px;padding-top:10px;border-top:2px dashed var(--line);font-weight:700}
+.panel.none{display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px 16px;text-align:center;background:var(--card);color:var(--muted)}
+.panel.none .ic{background:var(--bg);box-shadow:none}
+.panel.none .lb{font-size:28px}
+.panel.sm{box-shadow:var(--shadow-s);border-radius:22px}
+.panel.sm>summary{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 12px;padding:14px 12px 12px}
+.panel.sm .ic{width:58px;height:58px;font-size:32px}
+.panel.sm .lb{font-size:26px;margin-top:0}
+.panel.sm .mm{flex-basis:100%;font-size:15px}
+.panel.sm .more{font-size:16px;padding:7px 10px;margin-top:4px}
+.panel.sm.none{flex-direction:row;justify-content:center;padding:14px}
+.panel.sm.none .lb{font-size:22px}
+.note{display:block;width:fit-content;margin:14px auto 0;background:var(--card);border-radius:999px;padding:6px 18px;font-size:19px;font-weight:800;box-shadow:var(--shadow-s)}
+.sect{display:flex;align-items:center;gap:12px;margin:26px 0 0;font-size:21px;font-weight:900;color:var(--fg)}
+.sect::before,.sect::after{content:"";flex:1;height:2px;background:var(--line);border-radius:2px}
+
+/* ===== ボタン ===== */
+.cta{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:100%;margin-top:22px;padding:20px 12px 18px;border:0;border-bottom:7px solid rgba(0,0,0,.28);border-radius:28px;
+  background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff;box-shadow:var(--shadow);text-align:center}
+.cta:active{border-bottom-width:3px;transform:translateY(4px)}
+.cta .ct{display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:900;line-height:1.25}
+.cta .mg{margin-right:12px;position:relative;left:-6px;font-size:40px}
+.cta .cs{font-size:20px;font-weight:800}
+.cta .cn{font-size:16px;font-weight:700;opacity:.92}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px 8px 14px;border:2px solid var(--line);border-bottom:6px solid var(--line);border-radius:24px;background:var(--card);box-shadow:var(--shadow-s);min-height:124px}
+.tile:active{border-bottom-width:2px;transform:translateY(4px)}
+.tile .ti{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--bg);font-size:32px;line-height:1}
+.tile .tl{font-size:21px;font-weight:900;line-height:1.3;text-align:center}
+.notebar{display:block;width:100%;margin-top:18px;padding:14px;border:2px solid var(--accent);border-radius:20px;background:var(--card);color:var(--accent);font-size:20px;font-weight:900;text-align:center}
+.btn{display:block;width:100%;font-size:22px;font-weight:900;padding:16px;border-radius:18px;border:0;background:var(--accent);color:var(--accent-fg);margin-top:10px;text-align:center}
+.btn.sub{background:var(--bg);color:var(--fg);border:2px solid var(--line);font-size:19px;padding:13px}
+.back{position:sticky;top:0;z-index:5;display:block;width:100%;text-align:center;font-size:23px;font-weight:900;padding:15px 16px;border-radius:20px;border:2px solid var(--line);border-bottom-width:5px;background:var(--card);box-shadow:var(--shadow-s);margin-bottom:14px}
+h1{font-size:28px;margin:8px 0 14px;line-height:1.3;text-align:center}
+h2{font-size:21px;margin:0 0 8px}
+.alert{background:var(--warn-bg);color:var(--warn);border-radius:20px;padding:14px 16px;margin-top:14px;font-size:19px;font-weight:800;text-align:center}
+.alert button{display:block;width:100%;margin-top:10px;font-size:19px;font-weight:900;padding:12px;border-radius:14px;border:2px solid currentColor;background:transparent}
+.box{background:var(--card);border-radius:22px;padding:16px;margin-top:14px;box-shadow:var(--shadow-s)}
+.box h2{margin-bottom:10px}
+.notice{background:var(--carry-bg);color:var(--carry);border-radius:20px;padding:16px;margin-top:14px;font-size:19px;font-weight:700;line-height:1.65;text-align:center}
+.bl{margin:6px 0 0;padding-left:22px;font-size:18px;line-height:1.65}
+.bl li{margin:8px 0}
+a.tel{display:inline-block;font-size:28px;font-weight:900;color:var(--accent);text-decoration:none;margin-top:6px}
+.cur{font-size:22px;font-weight:900;margin-bottom:4px}
+.stat{display:inline-block;background:var(--res-bg);color:var(--res);font-weight:900;border-radius:999px;padding:4px 16px;font-size:19px}
+
+/* ===== えらぶ(市・町・地区) ===== */
+.choice{display:block;width:100%;text-align:center;font-size:28px;font-weight:900;padding:20px 16px;margin-top:12px;border-radius:24px;border:0;background:var(--card);box-shadow:var(--shadow-s)}
+.choice small{display:block;font-size:16px;font-weight:500;color:var(--muted);margin-top:4px}
+.choice.long{font-size:21px;line-height:1.5;text-align:left}
+.choice.long small{font-size:17px;font-weight:800;color:var(--accent)}
+.seg{display:flex;gap:8px}
+.sg{flex:1;font-size:19px;font-weight:900;padding:14px 6px;border-radius:16px;border:2px solid var(--line);background:var(--card);line-height:1.3}
+.sg.on{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+
+/* ===== 検索 ===== */
+.sbox{display:flex;gap:8px;margin-top:4px}
+.sbox input{flex:1;min-width:0;font-size:26px;padding:14px;border-radius:18px;border:3px solid var(--accent);background:var(--card);color:var(--fg)}
+.sbox button{flex:none;font-size:22px;font-weight:900;padding:0 16px;border-radius:18px;border:0;background:var(--card);box-shadow:var(--shadow-s)}
+.hint{font-size:16px;color:var(--muted);margin:8px 2px 0;text-align:center}
+.kanahead{font-size:18px;font-weight:900;margin:20px 2px 8px;text-align:center}
+.kana{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.kb{font-size:24px;font-weight:900;padding:12px 0;border-radius:16px;border:0;background:var(--card);box-shadow:var(--shadow-s)}
+.kb.on{background:var(--accent);color:var(--accent-fg)}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+.chipb{font-size:21px;font-weight:800;padding:10px 16px;border-radius:999px;border:0;background:var(--card);box-shadow:var(--shadow-s)}
+.cnt{font-size:17px;font-weight:700;color:var(--muted);margin-top:16px;text-align:center}
+.srcnote{font-size:15px;color:var(--muted);margin-top:14px;line-height:1.55}
+.ans{border-radius:24px;padding:18px 16px;margin-top:14px;text-align:center;box-shadow:var(--shadow-s)}
+.ans.burn{background:var(--burn-bg);color:var(--burn)}
+.ans.nb{background:var(--nb-bg);color:var(--nb)}
+.ans.res{background:var(--res-bg);color:var(--res)}
+.ans.pet{background:var(--pet-bg);color:var(--pet)}
+.ans.bin{background:var(--bin-bg);color:var(--bin)}
+.ans.big{background:var(--big-bg);color:var(--big)}
+.ans.haz{background:var(--haz-bg);color:var(--haz)}
+.ans.carry{background:var(--carry-bg);color:var(--carry)}
+.ans.ng{background:var(--ng-bg);color:var(--ng)}
+.ans .nm{font-size:23px;font-weight:900;line-height:1.35;color:var(--fg)}
+.ans .is{font-size:16px;font-weight:700;margin-top:10px}
+.ans .lab{display:flex;align-items:center;justify-content:center;gap:10px;font-size:30px;font-weight:900;line-height:1.3;margin-top:2px}
+.ans .lab .ic{flex:none;font-size:36px;line-height:1.2}
+.ans .lab .de{font-size:20px;font-weight:800}
+.when{background:var(--card);color:var(--fg);border-radius:18px;padding:14px;margin-top:12px;text-align:center}
+.when .wl{font-size:15px;font-weight:800;color:var(--muted)}
+.when .wdate{font-size:32px;font-weight:900;line-height:1.3}
+.when .wrel{display:inline-block;font-size:20px;font-weight:900;color:var(--accent-fg);background:var(--accent);border-radius:999px;padding:0 16px;margin-top:2px}
+.when .wn{font-size:14px;color:var(--muted);margin-top:4px}
+.ans .how{font-size:17px;font-weight:600;margin-top:12px;line-height:1.6;text-align:left}
+.ans .nt{font-size:16px;font-weight:600;margin-top:10px;padding-top:8px;border-top:1px dashed currentColor;line-height:1.55;text-align:left}
+.drow{background:var(--card);border-radius:18px;margin-top:8px;overflow:hidden;box-shadow:var(--shadow-s)}
+.drow>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;list-style:none;cursor:pointer}
+.drow>summary::-webkit-details-marker{display:none}
+.drow .dn{flex:1;min-width:0;font-size:20px;font-weight:800;line-height:1.35}
+.drow .dl{flex:none;max-width:48%;font-size:14px;font-weight:800;padding:3px 10px;border-radius:999px;line-height:1.35;text-align:center}
+.drow .dl.burn{background:var(--burn-bg);color:var(--burn)}.drow .dl.nb{background:var(--nb-bg);color:var(--nb)}
+.drow .dl.res{background:var(--res-bg);color:var(--res)}.drow .dl.pet{background:var(--pet-bg);color:var(--pet)}
+.drow .dl.bin{background:var(--bin-bg);color:var(--bin)}.drow .dl.big{background:var(--big-bg);color:var(--big)}
+.drow .dl.haz{background:var(--haz-bg);color:var(--haz)}.drow .dl.carry{background:var(--carry-bg);color:var(--carry)}
+.drow .dl.ng{background:var(--ng-bg);color:var(--ng)}
+.drow .ans{margin:0 10px 10px;box-shadow:none}
+.drow .ans .nm{display:none}
+.drow .ans .is{margin-top:4px}
+
+/* ===== こんなとき ===== */
+.xrow{background:var(--card);border-radius:20px;margin-top:10px;overflow:hidden;box-shadow:var(--shadow-s)}
+.xrow>summary{display:flex;align-items:center;gap:12px;padding:14px;list-style:none;cursor:pointer}
+.xrow>summary::-webkit-details-marker{display:none}
+.xi{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--bg);font-size:26px}
+.xt{flex:1;min-width:0;font-size:20px;font-weight:900;line-height:1.35}
+.xc{flex:none;font-size:18px;color:var(--muted)}
+.xrow[open] .xc{transform:rotate(180deg)}
+.xb{padding:2px 16px 16px;font-size:17px;line-height:1.7}
+.xb p{margin:8px 0}
+.xb ul,.xb ol{margin:6px 0;padding-left:22px}
+.xb li{margin:6px 0}
+.xb a.t{color:var(--accent);font-weight:900;text-decoration:none;white-space:nowrap}
+.xb .s{font-size:14px;color:var(--muted)}
+
+/* ===== よてい・カレンダー ===== */
+.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:18px}
+.row:first-of-type{border-top:0}
+.row .d{width:86px;flex:none;color:var(--muted)}
+.row .d b{color:var(--fg);font-size:20px}
+.chip{font-size:16px;font-weight:800;padding:3px 10px;border-radius:999px;display:inline-block;margin:2px 4px 2px 0}
+.chip.burn{background:var(--burn-bg);color:var(--burn)}.chip.nb{background:var(--nb-bg);color:var(--nb)}
+.chip.res{background:var(--res-bg);color:var(--res)}.chip.pet{background:var(--pet-bg);color:var(--pet)}
+.chip.bin{background:var(--bin-bg);color:var(--bin)}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.mh button{background:var(--bg);border:0;border-radius:14px;font-size:22px;padding:6px 20px}
+.mh span{font-weight:900;font-size:20px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal .h{font-size:13px;color:var(--muted);text-align:center}
+.cal .h:first-child{color:var(--sun)}.cal .h:nth-child(7){color:var(--sat)}
+.c{min-height:58px;border-radius:10px;background:var(--bg);padding:3px;display:flex;flex-direction:column;gap:2px}
+.c.e{background:transparent}
+.c.today{outline:3px solid var(--accent)}
+.c .n{font-size:13px;color:var(--muted)}
+.c i{font-style:normal;font-size:12px;font-weight:900;text-align:center;border-radius:4px;padding:1px 0}
+.c i.burn{background:var(--burn-bg);color:var(--burn)}.c i.nb{background:var(--nb-bg);color:var(--nb)}
+.c i.res{background:var(--res-bg);color:var(--res)}.c i.pet{background:var(--pet-bg);color:var(--pet)}
+.c i.bin{background:var(--bin-bg);color:var(--bin)}
+.c.off .n::after{content:" 休";color:var(--muted)}
+.legend{margin-top:8px;text-align:center}
+.when.simple{border:2px solid var(--line)}
+details.plain{margin-top:14px;background:var(--card);border-radius:20px;padding:12px 16px;box-shadow:var(--shadow-s)}
+details.plain{text-align:center}
+details.plain summary{font-weight:900;font-size:19px;cursor:pointer;text-align:center;list-style:none}
+details.plain summary::-webkit-details-marker{display:none}
+details.plain ul{margin:8px auto 0;padding-left:22px;font-size:17px;display:inline-block;text-align:left}
+details.plain li{margin:6px 0}
+select{width:100%;font-size:22px;padding:10px;margin-top:8px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--fg)}
+footer{margin-top:26px;text-align:center;font-size:14px;color:var(--muted);line-height:1.7}
+footer .ft{margin-top:10px;font-size:15px;color:var(--fg)}
+footer a{color:var(--accent);font-weight:900;text-decoration:none}
+footer .lab{display:block;margin-top:12px;font-size:12px;font-weight:900;letter-spacing:.28em;color:var(--accent)}
+
+/* ===== v9: きけんなごみ・持ち込み・ホームの検索欄 ===== */
+.danger{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;margin-top:16px;padding:16px 12px 14px;
+  border:3px solid var(--haz);border-bottom-width:8px;border-radius:26px;background:var(--haz-bg);color:var(--haz);text-align:center;box-shadow:var(--shadow-s)}
+.danger:active{border-bottom-width:4px;transform:translateY(4px)}
+.danger .dt{display:flex;align-items:center;justify-content:center;gap:10px;font-size:32px;font-weight:900;line-height:1.3}
+.danger .di{font-size:36px}
+.danger .ds{font-size:16px;font-weight:700}
+.danger .dn2{margin-top:4px;background:var(--haz);color:#fff;border-radius:999px;padding:3px 18px;font-size:18px;font-weight:900}
+:root[data-theme="dark"] .danger .dn2,:root:not([data-theme="light"]) .danger .dn2{color:#2a0a07}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .danger .dn2{color:#fff}}
+.hsearch{margin-top:24px;background:var(--card);border-radius:26px;padding:16px 14px 14px;box-shadow:var(--shadow-s)}
+.hsearch .hs-t{text-align:center;font-size:21px;font-weight:900;line-height:1.45;margin-bottom:10px}
+.hsearch .ans{box-shadow:none;border:2px solid var(--line)}
+.warn{background:var(--haz-bg);color:var(--haz);border:2px solid var(--haz);border-radius:14px;padding:8px 10px;font-weight:900;font-size:18px;margin-bottom:10px;text-align:center}
+.xrow.dg{box-shadow:var(--shadow-s),inset 7px 0 0 var(--haz)}
+.xrow.dg .xi{background:var(--haz-bg)}
+.xs{display:block;font-size:15px;font-weight:700;color:var(--muted);margin-top:2px}
+.nd{background:var(--bg);border-radius:16px;padding:10px 12px;text-align:center;font-size:16px;margin-bottom:10px}
+.nd b{display:block;font-size:26px;line-height:1.3}
+.nd span{font-weight:800;color:var(--accent)}
+
+/* ===== はじめの設定 ===== */
+.sethero{margin:-12px -16px 0;padding:34px 16px 78px;border-radius:0 0 40px 40px;text-align:center;color:#fff;position:relative;overflow:hidden;
+  background:linear-gradient(155deg,var(--h1) 0%,var(--h2) 100%)}
+.sethero::before{content:"";position:absolute;right:-70px;top:-70px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.08)}
+.sethero::after{content:"";position:absolute;left:-90px;bottom:-110px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06)}
+.sethero>*{position:relative;z-index:1}
+.appicon{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:104px;height:104px;border-radius:28px;background:#fff;color:var(--h1);
+  box-shadow:0 14px 30px -10px rgba(0,0,0,.45);font-weight:900;line-height:1.05}
+.appicon span:first-child{font-size:38px}
+.appicon span:last-child{font-size:26px;color:var(--h2)}
+.sethero .sh1{margin-top:16px;font-size:38px;font-weight:900;letter-spacing:.06em}
+.sethero .sh2{margin-top:4px;font-size:18px;font-weight:700;opacity:.95}
+.sethero.mini{padding:18px 16px 70px}
+.sethero.mini .sh1{margin-top:0;font-size:28px}
+.setcard{position:relative;margin:-50px 0 0;background:var(--card);border-radius:32px;padding:18px 14px 20px;box-shadow:var(--shadow)}
+.setcard .back{box-shadow:none;background:var(--bg);margin-bottom:10px}
+.steps{display:flex;align-items:center;justify-content:center;gap:8px;margin:2px 0 6px}
+.dot{width:38px;height:8px;border-radius:99px;background:var(--line)}
+.dot.on{background:var(--accent)}
+.stn{margin-left:6px;font-size:15px;font-weight:800;color:var(--muted)}
+h1.sq{font-size:27px;margin:10px 0 14px}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ccard{display:flex;flex-direction:column;align-items:center;gap:6px;padding:22px 8px 18px;border:2px solid var(--line);border-bottom-width:7px;border-radius:26px;background:var(--bg)}
+.ccard:active{border-bottom-width:3px;transform:translateY(4px)}
+.ccard .cb{display:grid;place-items:center;width:78px;height:78px;border-radius:50%;font-size:40px;font-weight:900;color:#fff;box-shadow:0 8px 18px -8px rgba(0,0,0,.45)}
+.ccard .cb.a{background:linear-gradient(135deg,#0a5560,#1b8a73)}
+.ccard .cb.b{background:linear-gradient(135deg,#1f8a4f,#6aa83a)}
+.ccard b{font-size:27px;font-weight:900;line-height:1.3;margin-top:4px}
+.ccard small{font-size:14px;font-weight:700;color:var(--muted);line-height:1.4;text-align:center}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tt{padding:22px 6px;border:2px solid var(--line);border-bottom-width:6px;border-radius:22px;background:var(--bg);font-size:26px;font-weight:900}
+.tt:active{border-bottom-width:2px;transform:translateY(4px)}
+.tt:last-child:nth-child(odd){grid-column:1/-1}
+.alist{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.acard{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 12px 16px;border:2px solid var(--line);border-bottom-width:6px;border-radius:22px;background:var(--bg);text-align:center}
+.acard:active{border-bottom-width:2px;transform:translateY(4px)}
+.acard .an{display:inline-block;background:var(--accent);color:var(--accent-fg);border-radius:999px;padding:2px 20px;font-size:22px;font-weight:900}
+.acard .ap{font-size:18px;font-weight:700;line-height:1.55;color:var(--fg)}
+.sethint{text-align:center;margin-top:16px;font-size:15px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+
+
+const DICT = [["アイスピック",1,"紙などに包み、指定袋に「危険」と明記","あいすぴっく"],["アイスマクラ",0,"","あいすまくら"],["アイロン",1,"","あいろん"],["アイロン台",1,"指定袋に入らないものは粗大ごみ","あいろんだい"],["IHコンロ",1,"","IHこんろ"],["アクリル板",0,"","あくりるいた"],["アコーディオン",3,"","あこーでぃおん"],["足拭きマット",0,"石綿（アスベスト）含有物は持込禁止。メーカーに確認","あしふきまっと"],["アスベスト製品",6,"","あすべすとせいひん"],["畔シート",6,"農業用品は受入れ禁止。販売店へ相談","あぜしーと"],["厚紙",2,"雑誌類の間に挟んでください","あつがみ"],["圧力鍋",2,"","あつりょくなべ"],["油（食用）",0,"固めるか、紙・布に染み込ませる","あぶら(しょくよう)"],["油（食用）の容器（紙・プラスチック製）",0,"","あぶら(しょくよう)のようき(かみ・ぷらすちっくせい)"],["油（食用）の容器（缶）",2,"きれいにすすいでください","あぶら(しょくよう)のようき(かん)"],["油（食用）の容器（ガラス容器）",1,"","あぶら(しょくよう)のようき(がらすようき)"],["雨合羽",0,"","あめかっぱ"],["雨どい",5,"新築、改築または除去は持込禁止","あめどい"],["網（金属）",2,"","あみ(きんぞく)"],["網（ナイロン）",0,"","あみ(ないろん)"],["網戸",5,"新築、改築または除去は持込禁止","あみど"],["アルバム（紙・ビニール・写真）",0,"","あるばむ(かみ・びにーる・しゃしん)"],["アルミサッシ",5,"新築、改築または除去は持込禁止","あるみさっし"],["アルミ皿・容器",2,"きれいにすすいで乾かしてください","あるみさら・ようき"],["アルミホイル",1,"","あるみほいる"],["アルミホイル（外箱）",2,"雑誌類の間に挟んでください","あるみほいる(そとばこ)"],["アルミホイル（芯）",0,"","あるみほいる(しん)"],["泡立て器（アルミ・ステンレス）",2,"","あわたてき(あるみ・すてんれす)"],["泡立て器（電動）（金属・プラスチック）",1,"充電式は電池は外して有害危険ごみへ","あわたてき(でんどう)(きんぞく・ぷらすちっく)"],["安全靴",1,"","あんぜんぐつ"],["安全ピン",1,"多量の場合、紙などに包み、指定袋に「危険」と明記","あんぜんぴん"],["アンテナ",1,"指定袋に入らないものは粗大ごみ","あんてな"],["アンテナケーブル",1,"指定袋に入らないものは粗大ごみ","あんてなけーぶる"],["アンプ（ステレオ）",1,"指定袋に入らないものは粗大ごみ","あんぷ(すてれお)"],["石・岩",6,"","いし・いわ"],["衣装カバー",0,"","いしょうかばー"],["衣装ケース（木製・プラスチック）",3,"指定袋に入るものはもやせるごみ","いしょうけーす(もくせい・ぷらすちっく)"],["衣装ケース（ブリキ）",3,"","いしょうけーす(ぶりき)"],["椅子（木製・パイプ）",3,"","いす(もくせい・ぱいぷ)"],["板切れ",0,"●指定袋に入れる場合太さ6㎝以下のもの ●45ℓの指定袋＆ひもで結束する場合長さ50㎝以下、太さ6㎝以下、直径30㎝以下に束ねる ●長さ200㎝以下、太さ15㎝以下は持込みごみ ●新築・改築または除去は持込禁止","いたきれ"],["板ガラス",1,"割れ物は紙などに包み、指定袋に「危険」「割れ物」と明記","いたがらす"],["一輪車（遊具）",3,"","いちりんくるま(ゆうぐ)"],["一輪車（運搬用）ネコ",3,"","いちりんくるま(うんぱんよう)ねこ"],["一升びん（酒・醤油・みりん・酢）",2,"キャップは外して「もやせるごみ」又は「もやせないごみ」へ","いっしょうびん(さけ・しょうゆ・みりん・す)"],["一斗缶",2,"","いっとかん"],["糸・糸くず",0,"","いと・いとくず"],["犬小屋",5,"","いぬこや"],["犬用ケージ・サークル",3,"指定袋に入るものはもやせないごみ","いぬようけーじ・さーくる"],["イヤホン・ヘッドホン",2,"小型家電リサイクル回収にご協力ください","いやほん・へっどほん"],["医療廃棄物（注射針、針付チューブなど）",6,"医療機関に相談","いりょうはいきぶつ(ちゅうしゃばり、はりつきちゅーぶなど)"],["医療廃棄物（在宅医療廃棄物）（医療用チューブ、カテーテル、ストマなど）",0,"詳細はP14をご参照ください","いりょうはいきぶつ(ざいたくいりょうはいきぶつ)(いりょうようちゅーぶ、かてーてる、すとまなど)"],["衣類・着物・布類",2,"汚れがひどい場合はもやせるごみ","いるい・きもの・ぬのるい"],["衣類（布製以外）",0,"","いるい(ぬのせいいがい)"],["衣類乾燥機（ガス式・電気式）",6,"家電リサイクル法により販売店へ","いるいかんそうき(がすしき・でんきしき)"],["入歯",1,"","いれば"],["インクカートリッジ",0,"詳細はP14をご参照ください","いんくかーとりっじ"],["ウイスキーびん",2,"キャップは外して「もやせるごみ」又は「もやせないごみ」へ","ういすきーびん"],["植木鉢（陶器）",1,"割れ物は紙などに包み、指定袋に「危険」「割れ物」と明記","うえきばち(とうき)"],["植木鉢（プラスチック）",0,"","うえきばち(ぷらすちっく)"],["ウォーターサーバー",6,"販売店へ相談","うぉーたーさーばー"],["浮き輪（レジャー用・ビニール）",0,"空気を抜いてください","うきわ(れじゃーよう・びにーる)"],["うす",6,"自己処理をお願いします","うす"],["うちわ",0,"","うちわ"],["腕時計",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","うでどけい"],["乳母車（ベビーカー）",3,"","うばぐるま(べびーかー)"],["エアコン",6,"家電リサイクル法により販売店へ","えあこん"],["ＡＣアダプター",2,"小型家電リサイクル回収にご協力ください","ACあだぷたー"],["ＡＬＣ（軽量気泡コンクリート）",6,"中間処理施設又は最終処分場へご確認ください","ALC(けいりょうきほうこんくりーと)"],["枝類",0,"●指定袋に入れる場合太さ6㎝以下のもの ●45ℓの指定袋＆ひもで結束する場合長さ50㎝以下、太さ6㎝以下、直径30㎝以下に束ねる ●長さ200㎝以下、太さ15㎝以下は持込みごみ","えだるい"],["ＦＲＰ製品",6,"販売店へ相談","FRPせいひん"],["ＭＤプレーヤー",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","MDぷれーやー"],["ＬＥＤ電球",4,"","LEDでんきゅう"],["エレクトーン",6,"販売店へ相談","えれくとーん"],["園芸用ポット",0,"農業用品は受入れ禁止。販売店へ相談","えんげいようぽっと"],["エンジンオイル",6,"個人が市販の処理セットで処理した場合のみもやせるごみへ。液体は禁止","えんじんおいる"],["エンジンオイル缶（アルミ・スチール）",2,"缶をよく拭いてオイルを取り、他の缶とは別に入れて出してください","えんじんおいるかん(あるみ・すちーる)"],["延長コード",2,"","えんちょうこーど"],["鉛筆削り",1,"電池は外して有害危険ごみへ","えんぴつけずり"],["オイルエレメント",6,"販売店へ相談","おいるえれめんと"],["オイルヒーター",1,"指定袋に入らないものは粗大ごみ","おいるひーたー"],["オーディオ製品",2,"","おーでぃおせいひん"],["オーディオラック",3,"","おーでぃおらっく"],["オートバイ",6,"販売店へ相談","おーとばい"],["オーブンレンジ",1,"中身の重さで袋が破れてしまうものは粗大ごみ","おーぶんれんじ"],["オーブントースター",2,"45ℓの袋に入らないものは粗大ごみ","おーぶんとーすたー"],["桶（木・ポリエチレン）",0,"","おけ(き・ぽりえちれん)"],["桶（金属）",2,"","おけ(きんぞく)"],["おたま（汁汲み）（アルミ･ステンレス）",2,"","おたま(しるくみ)(あるみ・すてんれす)"],["おたま（汁汲み）（木・プラスチック）",0,"","おたま(しるくみ)(き・ぷらすちっく)"],["オノ",1,"","おの"],["おまる（プラスチック）",0,"汚物は除いてください","おまる(ぷらすちっく)"],["おむつ",0,"汚物は除いてください","おむつ"],["おもちゃ（プラスチック）",0,"","おもちゃ(ぷらすちっく)"],["おもちゃ（プラスチック+金属）",1,"","おもちゃ(ぷらすちっく+きんぞく)"],["おもちゃ（金属）",2,"","おもちゃ(きんぞく)"],["オルガン",6,"販売店へ相談","おるがん"],["オルゴール（金属のみ）",2,"","おるごーる(きんぞくのみ)"],["オルゴール（プラスチック+金属）",1,"","おるごーる(ぷらすちっく+きんぞく)"],["温水器・給湯器",6,"販売店へ相談","おんすいうつわ・きゅうとうき"],["温度計・湿度計（水銀）",4,"","おんどけい・しつどけい(すいぎん)"],["温度計（デジタル）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","おんどけい(でじたる)"],["カーテレビ",2,"小型家電リサイクル回収にご協力ください","かーてれび"],["カーテン",2,"畳んで透明、半透明袋に入れてください","かーてん"],["カー用品（電気系統）（カーナビ･テレビ･チューナー･ステレオ･ラジオ･CD､DVD､MDプレーヤー･スピーカー･アンプ･VICSユニット･ETC搭載ユニット）",2,"小型家電リサイクル回収にご協力ください","かーようひん(でんきけいとう)(かーなび・てれび・ちゅーなー・すてれお・らじお・CD、DVD、MDぷれーやー・すぴーかー・あんぷ・VICSゆにっと・ETCとうさいゆにっと)"],["カーペット",3,"50㎝角以下に切り指定袋に入れてもやせるごみに出すことも可能","かーぺっと"],["貝殻",0,"","かいがら"],["懐中電灯",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","かいちゅうでんとう"],["外壁材",6,"中間処理施設または最終処分場へご確認ください","がいへきざい"],["かいまき・綿入れ半纏",3,"50㎝角以下に切り指定袋に入れてもやせるごみに出すことも可能","かいまき・わたいれれはんてん"],["カイロ（使い捨て）",0,"","かいろ(つかいすて)"],["鏡",1,"割れ物は紙などに包み、指定袋に「危険」「割れ物」と明記","かがみ"],["垣根（木・竹・葉）",0,"●指定袋に入れる場合太さ6㎝以下のもの","かきね(き・たけ・は)"],["学習机",3,"","がくしゅうづくえ"],["家具類",3,"","かぐるい"],["カケヤ・杵（木製）",3,"","かけや・きね(もくせい)"],["かご（竹・籐・プラスチック）",0,"指定袋に入らないものは粗大ごみ","かご(たけ・とう・ぷらすちっく)"],["傘",1,"柄が指定袋から出ていても可","かさ"],["菓子箱",2,"雑誌類の間に挟んでくださいセロハンは剥がしてもやせるごみへ","かしはこ"],["加湿器",1,"指定袋に入らないものは粗大ごみ","かしつき"],["果実酒用のびん",1,"再生できないびんのため","かじつさけようのびん"],["ガスボンベ",6,"販売店へ相談","がすぼんべ"],["ガス湯沸かし器",1,"指定袋に入らないものは粗大ごみ","がすゆわかしき"],["ガスレンジ台（ガスコンロ）",3,"指定袋に入るものはもやせないごみ","がすれんじだい(がすこんろ)"],["カセットコンロ",2,"汚れがひどい場合はもやせないごみ","かせっとこんろ"],["カセットボンベ",2,"中身は使い切り、穴をあけてガスを抜く","かせっとぼんべ"],["カセットデッキ",1,"指定袋に入らないものは粗大ごみ","かせっとでっき"],["カセットテープ",0,"","かせっとてーぷ"],["ガソリン",6,"販売店へ相談","がそりん"],["カッターナイフ（刃を含む）",1,"刃先は紙などに包み、指定袋に「危険」と明記","かったーないふ(はをふくむ)"],["蚊取り線香",0,"","かとりせんこう"],["かなづち（金属）",2,"","かなづち(きんぞく)"],["かばん",0,"","かばん"],["画鋲",1,"紙などに包み、指定袋に「危険」と明記","がびょう"],["壁",6,"中間処理施設または最終処分場へご確認ください","かべ"],["壁紙（紙・ビニール）",0,"新築、改築または除去は持込禁止","かべがみ(かみ・びにーる)"],["鎌",1,"紙などに包み、指定袋に「危険」と明記","かま"],["紙くず",0,"","かみくず"],["紙おむつ",0,"汚物は除いてください","かみおむつ"],["カミソリ",1,"紙などに包み、指定袋に「危険」と明記","かみそり"],["紙粘土",0,"","かみねんど"],["紙箱・紙袋",2,"","かみばこ・かみぶくろ"],["紙パック",2,"中がアルミ箔の場合はもやせるごみ","かみぱっく"],["カメラ（本体・レンズ）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","かめら(ほんたい・れんず)"],["カラーボックス",3,"","からーぼっくす"],["ガラス戸",5,"新築、改築または除去は持込禁止","がらすこ"],["ガラス類",1,"割れ物は紙などに包み、指定袋に「危険」「割れ物」と明記","がらするい"],["カレンダー",2,"紙と金属部分に分けてそれぞれ資源ごみへ","かれんだー"],["がれき類",6,"中間処理施設または最終処分場へご確認ください","がれきるい"],["革製品（革靴・バッグなど）",0,"","かわせいひん(かわぐつ・ばっぐなど)"],["瓦",6,"中間処理施設または最終処分場へご確認ください","かわら"],["缶",2,"","かん"],["乾燥機（衣類）",6,"家電リサイクル法により販売店へ","かんそうき(いるい)"],["乾電池",4,"端子部分をセロハンテープなどで覆い絶縁する","かんでんち"],["キーボード（パソコン）",1,"","きーぼーど(ぱそこん)"],["キーボード（楽器）",1,"指定袋に入らないものは粗大ごみ","きーぼーど(がっき)"],["機械油",6,"販売店へ相談","きかいあぶら"],["木・木くず・丸太・木材（家庭から）",0,"●指定袋に入れる場合太さ6㎝以下のもの ●45ℓの指定袋＆ひもで結束する場合長さ50㎝以下、太さ6㎝以下、直径30㎝以下に束ねる ●長さ200㎝以下、太さ15㎝以下は持込みごみ ●新築・改築または除去は持込禁止","き・きくず・まるた・もくざい(かていから)"],["貴金属類",2,"","ききんぞくるい"],["ギター",3,"","ぎたー"],["着物",2,"畳んで透明、半透明袋に入れてください","きもの"],["脚立",2,"長さが2ｍを超えるものは粗大ごみ","きゃたつ"],["キャリーバック",3,"指定袋に入るものはもやせないごみ","きゃりーばっく"],["牛乳パック",2,"きれいにすすいで乾かしてください","ぎゅうにゅうぱっく"],["給油ポンプ（電動式）",1,"電池は外して有害危険ごみへ","きゅうゆぽんぷ(でんどうしき)"],["教科書",2,"","きょうかしょ"],["鏡台",3,"","きょうだい"],["きり",1,"紙などに包み、指定袋に「危険」と明記","きり"],["金魚鉢（ガラス）",1,"割れ物は紙などに包み、指定袋に「危険」「割れ物」と明記","きんぎょばち(がらす)"],["金魚鉢（プラスチック）",0,"","きんぎょばち(ぷらすちっく)"],["金庫（耐火性）",6,"販売店へ相談","きんこ(たいかせい)"],["金庫（手提げ）",1,"指定袋に入らないものは粗大ごみ","きんこ(てさげげ)"],["クーラーボックス",0,"指定袋に入らないものは粗大ごみ","くーらーぼっくす"],["空気入れ",1,"","くうきいれ"],["空気清浄機",1,"指定袋に入らないものは粗大ごみ","くうきせいじょうき"],["釘",2,"多量の場合、紙などに包み、袋に「危険」と明記","くぎ"],["釘抜き（金属）",2,"","くぎぬきき(きんぞく)"],["草（雑草）",0,"枯らせて土を落としてください","くさ(ざっそう)"],["草刈り機（本体）",3,"混合油は必ず抜いてください","くさかりき(ほんたい)"],["草刈り機（刃）",2,"紙などに包み、45ℓ以下の袋に「危険」と明記","くさかりき(は)"],["薬",0,"","くすり"],["薬のびん",1,"","くすりのびん"],["口紅",0,"","くちべに"],["靴",0,"","くつ"],["靴下",0,"","くつした"],["クッション",0,"","くっしょん"],["グラス（陶器・ガラス製）",1,"割れ物は紙などに包み、指定袋に「危険」「割れ物」と明記","ぐらす(とうき・がらすせい)"],["グラスファイバー（ガラス繊維）",6,"中間処理施設または最終処分場へご確認ください","ぐらすふぁいばー(がらすせんい)"],["クリップ（金属製）",2,"","くりっぷ(きんぞくせい)"],["車いす（手動・電動）",3,"","くるまいす(しゅどう・でんどう)"],["車の部品",6,"販売店へ相談","くるまのぶひん"],["クレヨン",0,"","くれよん"],["グローランプ（点灯管）",4,"","ぐろーらんぷ(てんとうかん)"],["グローブ（野球用）（革製）",0,"","ぐろーぶ(やきゅうよう)(かわせい)"],["くわ（金属＋木製）",3,"指定袋に入るものはもやせないごみ","くわ(きんぞく+もくせい)"],["ケイカルボード（ケイ酸カルシウム板）",6,"建築廃材の為、受入れ禁止。中間処理施設または最終処分場へご確認ください","けいかるぼーど(けいさんかるしうむいた)"],["蛍光管",4,"","けいこうかん"],["蛍光灯（長）",4,"45ℓの袋から出てもよい。数本あるときには紐で縛ってください","けいこうとう(ちょう)"],["計算機（電卓）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","けいさんき(でんたく)"],["携帯型音楽プレーヤー",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","けいたいがたおんがくぷれーやー"],["携帯テレビ",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","けいたいてれび"],["携帯電話",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","けいたいでんわ"],["ケーブル（配線）",2,"45ℓの袋に入らないものは粗大ごみ","けーぶる(はいせん)"],["ゲーム機",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","げーむき"],["ゲームソフト",0,"","げーむそふと"],["化粧品（びん）",1,"中身は使い切ってください","けしょうひん(びん)"],["ケチャップ容器（びん）",2,"きれいにすすいでください","けちゃっぷようき(びん)"],["血圧計（電池式）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","けつあつけい(でんちしき)"],["血圧計（水銀）",4,"","けつあつけい(すいぎん)"],["血糖値測定機器（注射針など）",6,"医療機関に相談","けっとうちそくていきうつわ(ちゅうしゃばりなど)"],["玄関マット（金属付き）",1,"指定袋に入らないものは粗大ごみ","げんかんまっと(きんぞくつき)"],["玄関マット（ゴム、布製）",0,"","げんかんまっと(ごむ、ぬのせい)"],["建築廃材",6,"中間処理施設または最終処分場へご確認ください","けんちくはいざい"],["碁石",1,"","ごいし"],["こいのぼり（布・ビニール）",0,"50㎝以下に切ってください","こいのぼり(ぬの・びにーる)"],["高圧洗浄機",1,"指定袋に入らないものは粗大ごみ","こうあつせんじょうき"],["コート",2,"畳んで透明、半透明袋に入れてください","こーと"],["コードリール",2,"小型家電リサイクル回収にご協力ください","こーどりーる"],["コーヒーの容器（びん）",2,"きれいにすすいでください","こーひーのようき(びん)"],["コーヒーメーカー",1,"","こーひーめーかー"],["固形燃料（炭）",0,"","こけいねんりょう(すみ)"],["ござ（いぐさ・ビニール製）",3,"50㎝角以下に切り指定袋に入れてもやせるごみに出すことも可能","ござ(いぐさ・びにーるせい)"],["こたつ",3,"電熱器、鉄板は破砕不可。鉄板と脚の部分の一式で処理券1枚、3辺の和が3ｍ以上なら2枚貼ってください","こたつ"],["コッヘル（金属：キャンプ用）",2,"","こっへる(きんぞく:きゃんぷよう)"],["粉ミルク缶（スチール）",2,"プラスチック製のふたはもやせるごみ","こなみるくかん(すちーる)"],["コミック本",2,"紐で十字に結束して出してください※ガムテープは不可","こみっくほん"],["ゴム製品",0,"50㎝以下に切ってください","ごむせいひん"],["米びつ",3,"","こめびつ"],["米袋",0,"","こめぶくろ"],["ゴルフ用品（バッグ・クラブ）",3,"クラブは、資源ごみで出すことも可","ごるふようひん(ばっぐ・くらぶ)"],["ゴルフ用品（ボール）",1,"","ごるふようひん(ぼーる)"],["ゴルフ用品（グローブ・靴）",0,"","ごるふようひん(ぐろーぶ・くつ)"],["コンクリート製品（ブロック・モルタルなど）",6,"中間処理施設または最終処分場へご確認ください","こんくりーとせいひん(ぶろっく・もるたるなど)"],["混合ガソリンの缶",2,"中身をしっかり抜いて他の缶とは別にしてください","こんごうがそりんのかん"],["コンセント",2,"小型家電リサイクル回収にご協力ください","こんせんと"],["コンパス",1,"針部は紙などに包み、指定袋に「危険」と明記","こんぱす"],["コンパネ",5,"新築、改築または除去は持込禁止","こんぱね"],["コンポスト容器",5,"砕いて、もやせるごみでも可","こんぽすとようき"],["コンロ（ＩＨ・ガス）",1,"指定袋に入らないものは粗大ごみ","こんろ(IH・がす)"],["サーフボード",3,"指定袋に入る場合はもやせないごみ","さーふぼーど"],["座椅子",3,"","ざいす"],["サイディング（外壁）",6,"中間処理施設または最終処分場へご確認ください","さいでぃんぐ(がいへき)"],["サイドボード",3,"","さいどぼーど"],["財布（皮・布・ビニール製）",0,"","さいふ(かわ・ぬの・びにーるせい)"],["座卓",3,"","ざたく"],["雑誌",2,"紐で十字に結束して出してください※ガムテープは不可","ざっし"],["座布団",0,"50㎝角以下に切ってください","ざぶとん"],["ざる（竹・プラスチック）",0,"","ざる(たけ・ぷらすちっく)"],["ざる（金属）",2,"","ざる(きんぞく)"],["三角コーナー（プラスチック）",0,"","さんかくこーなー(ぷらすちっく)"],["三角コーナー（金属）",2,"","さんかくこーなー(きんぞく)"],["サンダル",0,"","さんだる"],["三輪車",3,"","さんりんしゃ"],["ＣＳチューナー",2,"小型家電リサイクル回収にご協力ください","CSちゅーなー"],["ＣＤ・ＤＶＤ",0,"","CD・DVD"],["ＣＤプレーヤー（ＭＤ含む）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","CDぷれーやー(MDふくむ)"],["シーツ",2,"畳んで透明、半透明袋に入れてください。綿入りの場合は50㎝角以下に切ってもやせるごみへ","しーつ"],["シート（レジャー用等）",0,"50㎝角以下に切ってください","しーと(れじゃーようなど)"],["シェーバー（電気カミソリ）",2,"小型家電リサイクル回収にご協力ください","しぇーばー(でんきかみそり)"],["ジェットバック（車上積載）（ルーフボックス）",5,"","じぇっとばっく(しゃじょうせきさい)(るーふぼっくす)"],["敷きパッド",0,"50㎝角以下に切ってください","しきぱっど"],["磁石",1,"","じしゃく"],["辞書",2,"","じしょ"],["自然石",6,"","しぜんいし"],["下着",0,"","したぎ"],["支柱（洗濯干し）",3,"下についている石は持込禁止","しちゅう(せんたくほし)"],["七輪",1,"","しちりん"],["自転車",3,"","じてんしゃ"],["自動車部品",6,"販売店へ相談","じどうしゃぶひん"],["芝（芝生）",0,"","しば(しばふ)"],["芝刈り機",3,"燃料は必ず抜いてください","しばかりりき"],["シャープペンシル（プラスチック）",0,"","しゃーぷぺんしる(ぷらすちっく)"],["シャープペンシル（金属含む）",1,"","しゃーぷぺんしる(きんぞくふくむ)"],["遮光ネット",0,"50㎝角以下に切ってください","しゃこうねっと"],["車体カバー",0,"50㎝角以下に切ってください","しゃたいかばー"],["ジャッキ",2,"小型のもの","じゃっき"],["ジャムのびん",2,"きれいにすすいでください","じゃむのびん"],["砂利",6,"","じゃり"],["シャワーカーテン（ビニール）",0,"50㎝角以下に切ってください","しゃわーかーてん(びにーる)"],["シャンプー容器",0,"","しゃんぷーようき"],["じゅうたん",3,"50㎝角以下に切り指定袋に入れてもやせるごみに出すことも可","じゅうたん"],["充電器",2,"小型家電リサイクル回収にご協力ください","じゅうでんき"],["シュレッダー",1,"指定袋に入らないものは粗大ごみ","しゅれっだー"],["シュレッダー紙くず",0,"","しゅれっだーかみくず"],["消火器",6,"販売店へ相談","しょうかき"],["浄化槽ブロワー（モーター）",1,"","じょうかそうぶろわー(もーたー)"],["焼却灰",6,"中間処理施設または最終処分場へご確認ください","しょうきゃくはい"],["障子・ふすま",5,"新築、改築または除去は持込禁止","しょうじ・ふすま"],["浄水器",1,"","じょうすいき"],["照明器具（プラスチック）",0,"","しょうめいきぐ(ぷらすちっく)"],["照明器具（蛍光管・電球）",4,"新築、改築または除去は持込禁止","しょうめいきぐ(けいこうかん・でんきゅう)"],["食品トレイ（白色以外）",0,"","しょくひんとれい(はくしょくいがい)"],["食品トレイ（白色）",2,"きれいにすすいで乾かしてください","しょくひんとれい(はくしょく)"],["食用油",0,"固めるか、紙・布に染み込ませる","しょくようあぶら"],["食用油の容器（紙・プラスチック）",0,"","しょくようあぶらのようき(かみ・ぷらすちっく)"],["食用油の容器（缶）",2,"きれいにすすいでください","しょくようあぶらのようき(かん)"],["食用油の容器（ガラス容器）",1,"中身は使い切ってください","しょくようあぶらのようき(がらすようき)"],["除湿器",1,"指定袋に入らないものは粗大ごみ","じょしつうつわ"],["食器洗浄機",3,"指定袋に入るものはもやせないごみ","しょっきせんじょうき"],["食器棚",3,"","しょっきだな"],["信号筒（発煙筒）",6,"販売店へ相談","しんごうつつ(はつえんとう)"],["新聞紙（チラシ含む）",2,"紐で十字に結束して出してください※ガムテープは不可","しんぶんし(ちらしふくむ)"],["水筒（金属）",2,"きれいにすすいでください","すいとう(きんぞく)"],["水筒（プラスチック）",0,"","すいとう(ぷらすちっく)"],["炊飯器",1,"","すいはんき"],["スーツ",2,"畳んで透明、半透明袋に入れてください","すーつ"],["スーツケース",3,"指定袋に入るものはもやせないごみ","すーつけーす"],["スカート",2,"畳んで透明、半透明袋に入れてください","すかーと"],["スキー板・ストック",3,"1対につき処理券1枚貼ってください","すきーいた・すとっく"],["スキャナー",3,"指定袋に入るものはもやせないごみ","すきゃなー"],["スケートボード",1,"","すけーとぼーど"],["スコップ",3,"金属のみのものは資源ごみ","すこっぷ"],["すだれ",3,"50㎝角以下に切り指定袋に入れてもやせるごみに出すことも可能","すだれ"],["スチール缶",2,"","すちーるかん"],["ステレオ（ミニコンポ等）",1,"","すてれお(みにこんぽなど)"],["ストーブ（石油）",3,"","すとーぶ(せきゆ)"],["ストーブ（電気）",2,"45ℓの袋に入らないものは粗大ごみ","すとーぶ(でんき)"],["ストッキング",0,"","すとっきんぐ"],["スニーカー",0,"安全靴はもやせないごみ","すにーかー"],["スノーボード",3,"","すのーぼーど"],["すのこ（木、プラスチック）",0,"指定袋に入らないものは粗大ごみ","すのこ(き、ぷらすちっく)"],["スパナ",2,"","すぱな"],["スピーカー",2,"小型家電リサイクル回収にご協力ください","すぴーかー"],["スプレー缶",2,"中身は使い切り、穴をあけてガスを抜く","すぷれーかん"],["炭",0,"","すみ"],["すり鉢",1,"","すりはち"],["スレート類",6,"中間処理施設または最終処分場へご確認ください","すれーとるい"],["石油ポリタンク",0,"中身は使い切ってください","せきゆぽりたんく"],["石膏ボード",6,"中間処理施設または最終処分場へご確認ください","せっこうぼーど"],["瀬戸物",1,"割れ物は紙などに包み、指定袋に「危険」「割れ物」と明記","せともの"],["セメント",6,"","せめんと"],["洗剤の容器（プラスチック・紙）",0,"","せんざいのようき(ぷらすちっく・かみ)"],["洗濯機",6,"家電リサイクル法により販売店へ","せんたくき"],["洗濯ばさみ",0,"","せんたくばさみ"],["剪定枝",0,"●指定袋に入れる場合太さ6㎝以下のもの ●45ℓの指定袋＆ひもで結束する場合長さ50㎝以下、太さ6㎝以下、直径30㎝以下に束ねる ●長さ200㎝以下、太さ15㎝以下は持込みごみ","せんていえだ"],["剪定はさみ",1,"刃先は紙などに包み、指定袋に「危険」と明記","せんていはさみ"],["扇風機",1,"指定袋に入らないものは粗大ごみ","せんぷうき"],["洗面台",5,"新築、改築または除去は持込禁止","せんめんだい"],["双眼鏡",1,"","そうがんきょう"],["掃除機",1,"充電式電池は外して有害危険ごみへ","そうじき"],["ソーラー温水器",6,"販売店へ相談","そーらーおんすいうつわ"],["ソーラーパネル",6,"販売店へ相談","そーらーぱねる"],["ソファー",3,"","そふぁー"],["体温計（水銀）",4,"","たいおんけい(すいぎん)"],["体温計（電子）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","たいおんけい(でんし)"],["体重計",1,"電池は外して有害危険ごみへ","たいじゅうけい"],["台所ゴミ（生ごみ）",0,"十分に水を切ってください","だいどころごみ(なまごみ)"],["タイマー（デジタル）",1,"電池は外して有害危険ごみへ","たいまー(でじたる)"],["タイヤチェーン（金属）",2,"","たいやちぇーん(きんぞく)"],["タイヤチェーン（金属以外）",0,"","たいやちぇーん(きんぞくいがい)"],["タイヤ・ホイール",6,"販売店へ相談","たいや・ほいーる"],["タイル",6,"販売店へ相談","たいる"],["タオル",2,"畳んで透明、半透明袋に入れてください","たおる"],["高枝切はさみ",3,"持ち込みごみ（自己搬入）となる場合があります","たかえだせつはさみ"],["卓上計算機（電卓）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","たくじょうけいさんき(でんたく)"],["竹",0,"●指定袋に入れる場合太さ6㎝以下のもの ●45ℓの指定袋＆ひもで結束する場合長さ50㎝以下、太さ6㎝以下、直径30㎝以下に束ねる ●長さ200㎝以下、太さ15㎝以下は持込みごみ","たけ"],["竹ほうき",3,"指定袋に入るものはもやせるごみ","たけほうき"],["畳",5,"新築、改築または除去は持込禁止","たたみ"],["盾（表彰用）",1,"","たて(ひょうしょうよう)"],["建具類（玄関・室内ドア・格子戸・障子・ふすま・窓・サッシ）",5,"新築、改築または除去は持込禁止","たてぐるい(げんかん・しつないどあ・こうしど・しょうじ・ふすま・まど・さっし)"],["たわし",0,"","たわし"],["タンス",3,"","たんす"],["ダンベル（鉄）",2,"","だんべる(てつ)"],["ダンボール",2,"紐で十字に結束して出してください※ガムテープは不可","だんぼーる"],["断熱材",6,"中間処理施設または最終処分場へご確認ください","だんねつざい"],["チャイルドシート",3,"指定袋に入るものはもやせないごみ","ちゃいるどしーと"],["茶箱（木・金属）",3,"","ちゃばこ(き・きんぞく)"],["茶碗（瀬戸物）",1,"割れ物は紙などに包み、指定袋に「危険」「割れ物」と明記","ちゃわん(せともの)"],["注射器・注射針",6,"詳細はP14をご参照ください","ちゅうしゃき・ちゅうしゃばり"],["在宅医療器具",0,"詳細はP14をご参照ください","ざいたくいりょうきぐ"],["チューナー",2,"小型家電リサイクル回収にご協力ください","ちゅーなー"],["彫刻刀",1,"刃先は紙などに包み、指定袋に「危険」と明記","ちょうこくとう"],["調理器具（金属含む）",1,"金属のみの場合は資源ごみ","ちょうりきぐ(きんぞくふくむ)"],["調理器具（プラスチック）",0,"","ちょうりきぐ(ぷらすちっく)"],["ちらし（広告）",2,"新聞といっしょにして、紐で十字に結束して出してください※ガムテープは不可","ちらし(こうこく)"],["使い捨てカメラ",0,"","つかいすてかめら"],["机",3,"","つくえ"],["漬物石",6,"中間処理施設または最終処分場へご確認ください","つけものいし"],["土",6,"","つち"],["爪切り（金属）",2,"","つめきり(きんぞく)"],["釣り道具（竿、針、リール、おもり）",1,"釣り針は、紙などに包み、指定袋に「危険」と明記","つりどうぐ(さお、はり、りーる、おもり)"],["ＤＶＤ（本体・プラスチック・紙製ケース）",0,"","DVD(ほんたい・ぷらすちっく・かみせいけーす)"],["ＤＶＤプレーヤー",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","DVDぷれーやー"],["テーブルクロス（ビニール）",0,"50㎝角以下に切ってください","てーぶるくろす(びにーる)"],["テーブルクロス（布）",2,"畳んで透明、半透明袋に入れてください","てーぶるくろす(ぬの)"],["ティッシュペーパーの箱",2,"雑誌類の間に挟んでください","てぃっしゅぺーぱーのはこ"],["デジタルカメラ",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","でじたるかめら"],["デスクマット（ビニール・プラスチック）",0,"50㎝角以下に切ってください","ですくまっと(びにーる・ぷらすちっく)"],["鉄アレイ（鉄）",2,"","てつあれい(てつ)"],["鉄板（バーベキュー用：金属）",2,"","てっぱん(ばーべきゅーよう:きんぞく)"],["テニス用具（カーボン製ラケット）",1,"","てにすようぐ(かーぼんせいらけっと)"],["テレビ（ブラウン管・液晶・プラズマ）",6,"家電リサイクル法により販売店へ","てれび(ぶらうんかん・えきしょう・ぷらずま)"],["テレビ（車載用）",2,"小型家電リサイクル回収にご協力ください","てれび(しゃさいよう)"],["テレビ（浴室等、埋込型）",2,"小型家電リサイクル回収にご協力ください","てれび(よくしつなど、うめこみかた)"],["テレビゲーム機",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","てれびげーむき"],["電気カーペット",1,"指定袋に入らないものは粗大ごみ","でんきかーぺっと"],["電気カミソリ（シェーバー）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","でんきかみそり(しぇーばー)"],["電気ケトル",1,"","でんきけとる"],["電気コード",2,"小型家電リサイクル回収にご協力ください","でんきこーど"],["電気コンロ",1,"","でんきこんろ"],["電気スタンド（卓上スタンドなど）",1,"蛍光灯、電球は外して有害・危険ごみへ","でんきすたんど(たくじょうすたんどなど)"],["電気ストーブ",2,"","でんきすとーぶ"],["電気ポット（魔法びん含む）",1,"","でんきぽっと(まほうびんふくむ)"],["電球",4,"","でんきゅう"],["電子オルガン",6,"販売店へ相談","でんしおるがん"],["電子キーボード",3,"","でんしきーぼーど"],["電子辞書",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","でんしじしょ"],["電子手帳",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","でんしてちょう"],["電子ピアノ",6,"販売店へ相談","でんしぴあの"],["電子レンジ",1,"中身の重さで袋が破れてしまうものは粗大ごみ","でんしれんじ"],["電卓",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","でんたく"],["電池",4,"端子部分をセロハンテープなどで覆い絶縁する","でんち"],["テント（キャンプ用）",3,"指定袋に入るものはもやせるごみ","てんと(きゃんぷよう)"],["電動ごみ処理機（家庭用）",1,"","でんどうごみしょりき(かていよう)"],["電動歯ブラシ",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","でんどうはぶらし"],["電話機（ＦＡＸ含む）",2,"小型家電リサイクル回収にご協力ください","でんわき(FAXふくむ)"],["電話線",2,"小型家電リサイクル回収にご協力ください","でんわせん"],["電話帳",2,"紐で十字に結束して出してください※ガムテープは不可","でんわちょう"],["ドア",5,"新築、改築または除去は持込禁止","どあ"],["砥石",1,"","といし"],["陶器・陶磁器",1,"","とうき・とうじき"],["トースター",2,"","とーすたー"],["灯油",6,"","とうゆ"],["土砂",6,"","どしゃ"],["時計（腕時計・掛け時計・置時計）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","とけい(うでどけい・かけとけい・ちとけい)"],["トタン板",5,"新築、改築または除去は持込禁止","とたんいた"],["ドライバー（工具）",1,"","どらいばー(こうぐ)"],["ドライヤー",2,"小型家電リサイクル回収にご協力ください","どらいやー"],["ドラム缶",5,"","どらむかん"],["トランシーバー",1,"","とらんしーばー"],["塗料",6,"販売店へ相談","とりょう"],["塗料の缶（缶）",2,"きれいにすすいでください","とりょうのかん(かん)"],["ドリンクびん",2,"きれいにすすいでください","どりんくびん"],["ドリンクびんのふた（金属）",1,"","どりんくびんのふた(きんぞく)"],["ドリンクびんのふた（プラスチック、コルク）",0,"","どりんくびんのふた(ぷらすちっく、こるく)"],["トレイ（皿）白色トレイ（発泡スチロール）",2,"きれいにすすいでください","とれい(さら)はくしょくとれい(はっぽうすちろーる)"],["トレイ（皿）色付き・汚れ有り・紙製",0,"","とれい(さら)いろづけき・よごれあり・かみせい"],["ドレッシング容器（プラスチック）",0,"中身は使い切ってください","どれっしんぐようき(ぷらすちっく)"],["ドレッシング容器（びん）",1,"","どれっしんぐようき(びん)"],["トロフィー（金属+木材）",1,"","とろふぃー(きんぞく+もくざい)"],["トング（金属）",2,"","とんぐ(きんぞく)"],["ナイフ",1,"刃先は紙などに包み、指定袋に「危険」と明記","ないふ"],["苗箱",0,"農業用品は受入れ禁止。販売店へ相談","なえはこ"],["流し台",5,"新築、改築または除去は持込禁止","ながしだい"],["なた",1,"刃先は紙などに包み、指定袋に「危険」と明記","なた"],["納豆の白色トレイ",2,"きれいにすすいでください。汚れているものはもやせるごみ","なっとうのはくしょくとれい"],["鍋（金属類）",2,"","なべ(きんぞくるい)"],["鍋（土鍋）",1,"","なべ(どなべ)"],["生ゴミ",0,"十分に水を切ってください","なまごみ"],["なみ板",5,"新築、改築または除去は持込禁止","なみいた"],["なみ板（ガラス繊維）",6,"中間処理施設または最終処分場へご確認ください","なみいた(がらすせんい)"],["縄・ロープ（ビニール、麻）",0,"50㎝以下に切ってください","なわ・ろーぷ(びにーる、あさ)"],["ニッパー（金属製）",1,"","にっぱー(きんぞくせい)"],["庭石",6,"中間処理施設または最終処分場へご確認ください","にわいし"],["人形（木製）",0,"","にんぎょう(もくせい)"],["人形（陶器）",1,"","にんぎょう(とうき)"],["人形（金属）",2,"","にんぎょう(きんぞく)"],["人形ケース",3,"指定袋に入るものはもやせないごみ※金属のみの場合は資源ごみ","にんぎょうけーす"],["ぬいぐるみ",0,"","ぬいぐるみ"],["縫い針",1,"発泡スチロール等に刺し、紙などに包み、指定袋に「危険」と明記","ぬいはり"],["布",2,"畳んで透明、半透明袋に入れてください","ぬの"],["ネクタイ",2,"","ねくたい"],["猫砂（紙・パルプ製）",0,"","ねこすな(かみ・ぱるぷせい)"],["猫砂（鉱石製・ベントナイト）",6,"販売店へ相談","ねこすな(こうせきせい・べんとないと)"],["ねじ",2,"","ねじ"],["寝袋",0,"50㎝角以下に切ってください","ねぶくろ"],["粘土（紙・油）",0,"","ねんど(かみ・あぶら)"],["粘土（土）",6,"","ねんど(つち)"],["燃料（ガソリン・灯油など）",6,"販売店へ相談","ねんりょう(がそりん・とうゆなど)"],["農業資材（廃プラスチック、ビニール、ポリエチレン等）",6,"販売店へ相談","のうぎょうしざい(はいぷらすちっく、びにーる、ぽりえちれんなど)"],["ノート",2,"","のーと"],["ノートパソコン（家庭用・業務用）",6,"パソコンリサイクル対象品","のーとぱそこん(かていよう・ぎょうむよう)"],["農薬容器（プラスチック容器など）",0,"中身は使い切る農業用品は受入れ禁止。販売店へ相談","のうやくようき(ぷらすちっくようきなど)"],["のこぎり",1,"刃先は紙などに包み、指定袋に「危険」と明記","のこぎり"],["バーベキューコンロ",2,"","ばーべきゅーこんろ"],["バイオリン（楽器）",3,"","ばいおりん(がっき)"],["灰",6,"中間処理施設または最終処分場へご確認ください","はい"],["灰皿（ガラス・陶器）",1,"","はいざら(がらす・とうき)"],["灰皿（金属）",2,"","はいざら(きんぞく)"],["パイプ（金属製）",2,"長さが2ｍを超えるものは持込み","ぱいぷ(きんぞくせい)"],["パイプ（塩ビ管）",5,"新築、改築または除去は持込禁止","ぱいぷ(しおびかん)"],["ハウスビニール",6,"農業用品は受入れ禁止。販売店へ相談","はうすびにーる"],["はがき",2,"雑誌類の間に挟んでください","はがき"],["はがき（写真付き）",0,"","はがき(しゃしんつき)"],["剥製（はくせい）",1,"","はくせい(はくせい)"],["バケツ（金属）",2,"","ばけつ(きんぞく)"],["バケツ（ポリエチレン）",0,"","ばけつ(ぽりえちれん)"],["はさみ（金属製）",2,"","はさみ(きんぞくせい)"],["はさみ（金属+プラスチック）",1,"","はさみ(きんぞく+ぷらすちっく)"],["バスタオル",2,"畳んで透明、半透明袋に入れてください","ばすたおる"],["柱",5,"新築、改築または除去は持込禁止","はしら"],["パソコン機器（本体・液晶画面）家庭用・業務用",6,"パソコンリサイクル対象品","ぱそこんきき(ほんたい・えきしょうがめん)かていよう・ぎょうむよう"],["パソコン機器（マウス・キーボード）",1,"","ぱそこんきき(まうす・きーぼーど)"],["鉢（陶器・ガラス）",1,"","はち(とうき・がらす)"],["バッグ（革、布、ビニール）",0,"","ばっぐ(かわ、ぬの、びにーる)"],["バッグ（紙）",2,"","ばっぐ(かみ)"],["バッテリー",6,"販売店へ相談","ばってりー"],["発煙筒",6,"販売店へ相談","はつえんとう"],["発電機",3,"燃料は必ず抜いてください","はつでんき"],["発泡スチロール",0,"","はっぽうすちろーる"],["発泡スチロール（白色）",2,"きれいにすすいで乾かしてください","はっぽうすちろーる(はくしょく)"],["バトミントンラケット",1,"","ばとみんとんらけっと"],["花火",0,"未使用は水に浸してください","はなび"],["パラソル",1,"指定袋に入らないものは粗大ごみ","ぱらそる"],["針金",2,"","はりがね"],["ハロゲンヒーター",1,"指定袋に入らないものは粗大ごみ","はろげんひーたー"],["ハンガー（針金）",2,"ビニール被覆してあるものも可","はんがー(はりがね)"],["ハンガー（プラスチック、ビニール）",0,"","はんがー(ぷらすちっく、びにーる)"],["ハンガー（金具+プラスチック）",1,"","はんがー(かなぐ+ぷらすちっく)"],["ハンカチ",2,"","はんかち"],["パンチ（穴あけ）（金属のみ）",2,"","ぱんち(あなあけ)(きんぞくのみ)"],["パンチ（穴あけ）（金属+プラスチック）",1,"","ぱんち(あなあけ)(きんぞく+ぷらすちっく)"],["半てん（綿入れ半纏）",0,"50㎝角以下に切ってください","はんてん(わたいれれはんてん)"],["ハンディーファン",4,"","はんでぃーふぁん"],["ハンドミキサー",1,"電池は外して有害危険ごみへ","はんどみきさー"],["ハンマー（木＋金属）",1,"","はんまー(き+きんぞく)"],["ピアノ",6,"販売店へ相談","ぴあの"],["ピアニカ",1,"","ぴあにか"],["ＢＳアンテナ",2,"","BSあんてな"],["ＢＳチューナー",2,"小型家電リサイクル回収にご協力ください","BSちゅーなー"],["ビールケース",3,"再利用可能な場合は、酒店で引取る場合あり","びーるけーす"],["ビールびん",2,"ビールびんのみで出す","びーるびん"],["ひげそり（かみそり）",1,"刃先は紙などに包み、指定袋に「危険」と明記","ひげそり(かみそり)"],["ひげそり（電池式・充電式）",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","ひげそり(でんちしき・じゅうでんしき)"],["ビデオカメラ",2,"小型家電リサイクル回収にご協力ください","びでおかめら"],["ビデオテープ・ケース（プラスチック）",0,"","びでおてーぷ・けーす(ぷらすちっく)"],["ビデオデッキ",2,"小型家電リサイクル回収にご協力ください","びでおでっき"],["ビニールハウス",6,"農業用品は受入れ禁止。販売店へ相談","びにーるはうす"],["ビニールホース",0,"50㎝以下に切ってください","びにーるほーす"],["ビニールシート（ブルーシート含む）",0,"50㎝角以下に切ってください","びにーるしーと(ぶるーしーとふくむ)"],["ビニールプール（子供用）",0,"50㎝角以下に切ってください","びにーるぷーる(こどもよう)"],["漂白剤（容器）",0,"中身は使い切ってください","ひょうはくざい(ようき)"],["肥料類",6,"自己処理をお願いします","ひりょうるい"],["びん（化粧品・薬・油・調味料など）",1,"","びん(けしょうひん・くすり・あぶら・ちょうみりょうなど)"],["びん（一升びん・ビール･ウイスキー・焼酎・日本酒・ワイン、ジュースびんなど）",2,"","びん(いっしょうびん・びーる・ういすきー・しょうちゅう・にほんしゅ・わいん、じゅーすびんなど)"],["びんの蓋（金属製）",1,"","びんのふた(きんぞくせい)"],["びんの蓋（プラスチック・コルク）",0,"","びんのふた(ぷらすちっく・こるく)"],["ファイル（紙）",2,"","ふぁいる(かみ)"],["ファイル（プラスチック）",0,"","ふぁいる(ぷらすちっく)"],["ファイル（金属含む）",1,"","ふぁいる(きんぞくふくむ)"],["ファックス",2,"小型家電リサイクル回収にご協力ください","ふぁっくす"],["ファンヒーター",3,"燃料は必ず抜いてください","ふぁんひーたー"],["封筒",2,"住所欄の透明ビニール部分はそのままで可","ふうとう"],["フォーク（金属）",2,"柄がプラスチックでも可","ふぉーく(きんぞく)"],["フォーク（プラスチック・木）",0,"","ふぉーく(ぷらすちっく・き)"],["ブースターケーブル",1,"","ぶーすたーけーぶる"],["ブーツ（金属付き）",1,"","ぶーつ(きんぞくつき)"],["フードプロセッサー",1,"","ふーどぷろせっさー"],["布団",3,"1対で1枚の処理券で可","ふとん"],["布団乾燥機",1,"指定袋に入らないものは粗大ごみ","ふとんかんそうき"],["腐葉土",6,"","ふようど"],["フライパン",2,"","ふらいぱん"],["ブラインド",5,"新築、改築または除去は持込禁止","ぶらいんど"],["プランター（プラスチック）",0,"","ぷらんたー(ぷらすちっく)"],["プランターの土",6,"販売店へ相談","ぷらんたーのつち"],["プリンター",1,"","ぷりんたー"],["ふるい（木・竹・プラスチック）",0,"","ふるい(き・たけ・ぷらすちっく)"],["ふるい（アルミ製）",2,"","ふるい(あるみせい)"],["ブルーシート（ビニール）",0,"50㎝角以下に切ってください","ぶるーしーと(びにーる)"],["ブロック（コンクリート）",6,"中間処理施設または最終処分場へご確認ください","ぶろっく(こんくりーと)"],["風呂釜",5,"新築、改築または除去は持込禁止","ふろがま"],["風呂敷（布製）",2,"畳んで透明、半透明袋に入れてください","ふろしき(ぬのせい)"],["風呂マット（珪藻土）",1,"石綿（アスベスト）含有物は持込禁止。メーカーに確認","ふろまっと(けいそうつち)"],["フロッピーディスク（本体・ケース）",0,"","ふろっぴーでぃすく(ほんたい・けーす)"],["プロパンガスボンベ",6,"販売店へ相談","ぷろぱんがすぼんべ"],["フローリング材",5,"新築、改築または除去は持込禁止","ふろーりんぐざい"],["噴射器（ステンレス）",2,"電池と農薬は取って水でよく洗ってください","ふんしゃうつわ(すてんれす)"],["噴射器（プラスチック+ステンレス）",1,"電池と農薬は取って水でよく洗ってください","ふんしゃうつわ(ぷらすちっく+すてんれす)"],["ヘアーアイロン",2,"小型家電リサイクル回収にご協力ください","へあーあいろん"],["ペットボトル",2,"ラベルをはずし、きれいにすすいでください","ぺっとぼとる"],["ペットボトルのラベル・キャップ",0,"","ぺっとぼとるのらべる・きゃっぷ"],["ベッド",3,"","べっど"],["ヘッドフォン",2,"小型家電リサイクル回収にご協力ください","へっどふぉん"],["ペットの排泄物",0,"紙で包んでビニール袋等で覆い、指定ごみ袋に入れてください","ぺっとのはいせつぶつ"],["ペット用品（シート・トイレ砂等）",0,"鉱石製は持込禁止。販売店へ相談","ぺっとようひん(しーと・といれすななど)"],["ベニヤ板",5,"指定袋に入るものはもやせるごみ新築、改築または除去は持込禁止","べにやいた"],["ベビーカー",3,"","べびーかー"],["ベビーチェアー",3,"","べびーちぇあー"],["ベビーバス",3,"指定袋に入るものはもやせるごみ","べびーばす"],["ベビーフェンス",3,"","べびーふぇんす"],["ベビーベッド",3,"","べびーべっど"],["ヘルスメーター",1,"電池は外して有害危険ごみへ","へるすめーたー"],["ベルト（革・布・ビニール）",0,"","べると(かわ・ぬの・びにーる)"],["ヘルメット",1,"","へるめっと"],["便器",6,"","べんき"],["便座",1,"","べんざ"],["ペンチ",1,"","ぺんち"],["ホイール（車）",6,"販売店へ相談","ほいーる(くるま)"],["ホイールキャップ（車）",6,"販売店へ相談","ほいーるきゃっぷ(くるま)"],["望遠鏡",3,"指定袋に入るものはもやせないごみ","ぼうえんきょう"],["ほうき（竹・プラスチック）",0,"","ほうき(たけ・ぷらすちっく)"],["帽子",0,"","ぼうし"],["包丁",1,"刃先は紙などに包み、指定袋に「危険」と明記","ほうちょう"],["ボウリングの球",1,"","ぼうりんぐのたま"],["ホース",0,"50㎝以下に切ってください","ほーす"],["ポータブルトイレ",5,"","ぽーたぶるといれ"],["ボールペン（プラスチック）",0,"","ぼーるぺん(ぷらすちっく)"],["ボールペン（金属）",1,"","ぼーるぺん(きんぞく)"],["ポスター",2,"","ぽすたー"],["ボタン電池",4,"全体をビニールテープなどで覆い絶縁する","ぼたんでんち"],["ホチキス",1,"","ほちきす"],["ホットカーペット",1,"畳んで入らなければ粗大ごみ","ほっとかーぺっと"],["ポット",1,"","ぽっと"],["ホットプレート",1,"指定袋に入らないものは粗大ごみ","ほっとぷれーと"],["哺乳びん（耐熱ガラス）",1,"","ほにゅうびん(たいねつがらす)"],["ポリタンク",0,"指定袋に入らないものは粗大ごみ","ぽりたんく"],["保冷剤（アイスノン等）",0,"","ほれいざい(あいすのんなど)"],["ホワイトボード",1,"指定袋に入らないものは粗大ごみ","ほわいとぼーど"],["盆栽",0,"土を落としてください","ぼんさい"],["マージャン牌",1,"","まーじゃんぱい"],["マイク",1,"","まいく"],["マウス（パソコンの部品）",1,"","まうす(ぱそこんのぶひん)"],["枕（そばがら、綿など）",0,"","まくら(そばがら、めんなど)"],["枕カバー",2,"畳んで透明、半透明袋に入れてください","まくらかばー"],["マジックペン（プラスチック）",0,"","まじっくぺん(ぷらすちっく)"],["マジックペン（金属・ガラス）",1,"","まじっくぺん(きんぞく・がらす)"],["マスク",0,"","ますく"],["マッサージ機",3,"指定袋に入るものはもやせないごみ","まっさーじき"],["マッチ",0,"十分に水に浸してください","まっち"],["マット（薄いもの）",0,"50㎝角以下に切ってください","まっと(うすいもの)"],["マットレス",3,"スプリングが出ている等、危険な場合は持込をお願いします","まっとれす"],["まな板（木・プラスチック）",0,"","まないた(き・ぷらすちっく)"],["まな板（樹脂加工）",1,"","まないた(じゅしかこう)"],["マニキュアのびん",1,"中身は使い切ってください","まにきゅあのびん"],["マフラー",2,"畳んで透明、半透明袋に入れてください","まふらー"],["魔法びん",1,"","まほうびん"],["豆炭",0,"","まめたん"],["ミキサー・ジューサー",1,"","みきさー・じゅーさー"],["ミシン",1,"指定袋に入らないものは粗大ごみ","みしん"],["ミニコンポ",1,"指定袋に入らないものは粗大ごみ","みにこんぽ"],["虫かご（プラスチック）",0,"","むしかご(ぷらすちっく)"],["虫取り網",1,"","むしとりあみ"],["虫めがね",1,"","むしめがね"],["眼鏡（プラスチック製）",0,"サングラスも含む","めがね(ぷらすちっくせい)"],["眼鏡（金属製・ガラス製）",1,"","めがね(きんぞくせい・がらすせい)"],["目覚まし時計",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","めざましとけい"],["メモリーカード",2,"小型家電リサイクル回収にご協力ください","めもりーかーど"],["毛布・綿毛布",0,"50㎝角以下に切ってください","もうふ・めんもうぬの"],["燃え殻",6,"","もえから"],["木材",0,"●指定袋に入れる場合太さ6㎝以下のもの ●45ℓの指定袋＆ひもで結束する場合長さ50㎝以下、太さ6㎝以下、直径30㎝以下に束ねる ●長さ200㎝以下、太さ15㎝以下は持込みごみ ●新築・改築または除去は持込禁止","もくざい"],["もちつき機",1,"指定袋に入らないものは粗大ごみごみ","もちつきき"],["物干し竿（金属）",3,"長さが2ｍ以下であれば資源で出すことも可","ものほしさお(きんぞく)"],["物干し支柱（金属）",3,"収集の場合は1対につき処理券1枚貼ってください。2ｍ以下であれば資源ごみ","ものほししちゅう(きんぞく)"],["物干し台（コンクリート台）",6,"中間処理施設または最終処分場へご確認ください","ものほしだい(こんくりーとだい)"],["モルタル、コンクリート",6,"中間処理施設または最終処分場へご確認ください","もるたる、こんくりーと"],["やかん",2,"","やかん"],["薬品（農薬・化学薬品）",6,"販売店へ相談","やくひん(のうやく・かがくやくひん)"],["薬品のびん",1,"","やくひんのびん"],["USBメモリ",2,"小型家電リサイクル回収にご協力ください","USBめもり"],["遊戯台（パチンコ台など）",5,"","ゆうぎだい(ぱちんこだいなど)"],["浴衣",2,"畳んで透明、半透明袋に入れてください","ゆかた"],["ユニットバス",6,"販売店へ相談","ゆにっとばす"],["湯呑",1,"割れ物は紙などに包み、指定袋に「危険」「割れ物」と明記","ゆのみ"],["湯沸し器",1,"指定袋に入らないものは粗大ごみ","ゆわかしうつわ"],["浴槽（木製以外）",6,"","よくそう(もくせいいがい)"],["浴槽（木製）",5,"","よくそう(もくせい)"],["浴槽のふた（木・プラスチック）",0,"指定袋に入らないものは粗大ごみ","よくそうのふた(き・ぷらすちっく)"],["よしず",3,"","よしず"],["ライター",4,"中身は使い切ってください","らいたー"],["ラグマット",0,"50㎝角以下に切ってください","らぐまっと"],["ラケット（木・プラスチック）",0,"","らけっと(き・ぷらすちっく)"],["ラケット（カーボン・アルミ）",1,"","らけっと(かーぼん・あるみ)"],["ラジオ",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","らじお"],["ラジカセ",1,"","らじかせ"],["ラップ",0,"","らっぷ"],["ラップ（外箱）",2,"雑誌類の間に挟んでください","らっぷ(そとばこ)"],["ラップ（芯）",0,"","らっぷ(しん)"],["ラムネのびん",2,"","らむねのびん"],["ランドセル",0,"","らんどせる"],["リール（釣り具）",1,"","りーる(つりぐ)"],["リコーダー（たて笛）",0,"","りこーだー(たてふえ)"],["リモコン",2,"小型家電リサイクル回収にご協力ください※電池は外して有害危険ごみへ","りもこん"],["ルーフボックス（車用）",5,"","るーふぼっくす(くるまよう)"],["ルーペ",1,"","るーぺ"],["レーキ（金属製）",2,"長さが2ｍを超えるものは粗大ごみ","れーき(きんぞくせい)"],["冷蔵庫・冷凍庫",6,"家電リサイクル法により販売店へ","れいぞうこ・れいとうこ"],["レコード（本体）",0,"","れこーど(ほんたい)"],["レコードプレーヤー",1,"","れこーどぷれーやー"],["レジャーシート",0,"50㎝角以下に切ってください","れじゃーしーと"],["レンガ",6,"中間処理施設または最終処分場へご確認ください","れんが"],["レンズ",1,"","れんず"],["練炭（炭）",0,"","れんたん(すみ)"],["ローソク",0,"","ろーそく"],["ロープ（麻・ビニール）",0,"50㎝以下に切ってください","ろーぷ(あさ・びにーる)"],["ローラースケート",1,"","ろーらーすけーと"],["ワープロ",1,"","わーぷろ"],["ワープロリボン",0,"","わーぷろりぼん"],["ワイシャツ",2,"畳んで透明、半透明袋に入れてください","わいしゃつ"],["ワイヤー",3,"持ち込みごみ（自己搬入）となる場合があります","わいやー"],["ワイヤレスイヤホン",4,"","わいやれすいやほん"],["ワインセラー",6,"家電リサイクル法により販売店へ","わいんせらー"],["綿入ればんてん（かいまき）",0,"50㎝角以下に切ってください","わたいれればんてん(かいまき)"],["綿（わた）",0,"50㎝角以下に切ってください","めん(わた)"]];
+
+const W = ['日','月','火','水','木','金','土'];
+
+/* ================= 市ごとのデータ ================= */
+// 各地区 r = [[種類, [曜日...], [第n回(省略で毎週)]], ...]   曜日: 0=日 1=月 … 6=土
+const K = (town,n,p,burn,nbw,nbn,res)=>({town,n,p,r:[['burn',burn],['nb',[nbw],nbn],['res',[res]]]});
+const H = (p,burn,paper,petw,petn,nbw,nbn,binw,binn)=>({n:'',p,r:[['burn',burn],['nb',[nbw],[nbn]],['paper',[paper]],['pet',[petw],petn],['bin',[binw],[binn]]]});
+
+const KD = {
+  burn:
+    '<b>生ごみ</b>野菜くず・残飯など(水をよく切る)'+
+    '<b>ビニール・プラスチック類</b>バケツ・洗剤やシャンプーの容器・カップ麺の容器など'+
+    '<b>資源にならない紙くず</b>ちり紙・写真・ぬれた紙・汚れた紙など'+
+    '<b>そのほか燃えるもの</b>革製品・布製品・草・枯れ葉・紙おむつ(汚物は取りのぞく)'+
+    '<div class="ng">ゴムホース・ロープ・ビニールシートは50cm以下に切ります。<br>電子たばこ・携帯扇風機は、ここに入れず「有害・危険ごみ」へ。</div>',
+  nb:
+    '<b>瀬戸物・ガラス・植木鉢</b>茶わん・湯のみ・皿・土なべ・植木鉢・粘土など。割れたものは新聞紙で包み、袋に「危険」「割れガラス」と書きます。'+
+    '<b>資源にならないびん</b>コップ・割れたびん・化粧品のびん・薬のびん'+
+    '<b>金属とプラスチックが混ざったもの</b>傘・はさみ・包丁・おもちゃ(金属+プラスチック)など。刃物は厚紙で包み、袋に「危険」と書きます。'+
+    '<b>家電(リサイクル対象外)</b>ポット・炊飯器・扇風機・電子レンジなど'+
+    '<div class="ng">電池は外して「有害・危険ごみ」へ。<br>指定袋に入らない大きなものは「粗大ごみ」です。</div>',
+  res:
+    '<b>紙・布</b>新聞紙・チラシ、段ボール、雑誌・雑紙(牛乳パックも)は、ひもで十文字にしばります(ガムテープは使いません)。衣類・布類は、たたんで透明な袋へ。'+
+    '<b>白い発泡スチロール</b>白色のものだけ。トレイは洗い、シールははがします。'+
+    '<b>缶</b>アルミ缶・スチール缶は中をすすぎます。スプレー缶は使い切って穴をあけます。'+
+    '<b>びん・ペットボトル</b>中をすすぎます。ペットボトルはキャップとラベルを外します(キャップとラベルは「もやせるごみ」)。'+
+    '<b>金属</b>鍋・やかん・フライパン・釘・針金・ねじ・電気ストーブ・物干し竿・脚立など。袋は1つ5〜6kgまで。'+
+    '<b>小型家電</b>携帯電話・ドライヤー・電卓・時計など。ほかの資源と分けて出します。市役所などの回収ボックスも使えます。'+
+    '<div class="ng">この日は「有害・危険ごみ」も出せます。<br>乾電池(端子にテープ)・蛍光灯・電球・水銀体温計・ライター・電子たばこ・携帯扇風機。中が見える透明な袋に入れます。</div>'
+};
+const HD = {
+  burn:
+    '<b>もやせるごみ</b>生ごみ・資源にならない紙くず類・ビニール・プラスチック類・木・枝など。指定袋にチェックを入れて出します。'+
+    '<div class="ng">木・枝は、太さ6cm以下・長さ50cm以下・直径30cm以下にして、45ℓの指定袋と一緒にたばねます。<br>旧高萩市の指定ごみ袋も使えます。</div>',
+  nb:
+    '<b>もやせないごみ(指定袋)</b>陶磁器・ガラス・割れたびん・化粧品や薬のびん・家電製品(リサイクル対象外のもの)など。割れたガラスは新聞紙で包み、袋に「危険」「割れガラス」と書きます。'+
+    '<b>小型家電リサイクル製品(無料)</b>スマートフォン・デジカメ・ドライヤー・小型家電についているケーブルなど。45ℓ以下の透明・半透明の袋へ。'+
+    '<b>有害・危険ごみ(無料)</b>蛍光灯・乾電池・リチウムイオン電池・電池がはずせない機器など。45ℓ以下の透明・半透明の袋へ。'+
+    '<div class="ng">モバイルバッテリーなどのリチウムイオン電池は、火事のもとです。必ず「有害・危険ごみ」で出します。</div>',
+  paper:
+    '<b>新聞紙・雑紙・ダンボール</b>種類ごとに、ひもで十字にしばります(折りたたんで)。小さい紙は、45ℓ以下の透明・半透明の袋に入れてもよいです。'+
+    '<b>布・缶・白い発泡スチロール・その他の金属</b>種類ごとに、45ℓ以下の透明・半透明の袋に入れます。'+
+    '<div class="ng">ガムテープは使いません。<br>汚れた発泡スチロールや、色つきの発泡スチロールは「もやせるごみ」です。</div>',
+  pet:
+    '<b>マークのあるペットボトル</b>キャップとラベルを取り、水洗いして、45ℓ以下の透明・半透明の袋に入れます。'+
+    '<div class="ng">キャップとラベルは「もやせるごみ」です。</div>',
+  bin:
+    '<b>びん</b>キャップを取り、水洗いして、45ℓ以下の透明・半透明の袋に入れます。色ごとに分けなくて大丈夫です。'+
+    '<div class="ng">一升びん・ビールびんは、酒屋さんで引き取ってもらえます。</div>'
+};
+
+const CITY = {
+  kita: {
+    name:'北茨城市',
+    order:['burn','nb','res'],
+    T:{
+      burn:{label:'もやせるごみ',   short:'燃', cls:'burn', memo:'指定袋にチェックを入れて出す', detail:KD.burn},
+      nb:  {label:'もやせないごみ', short:'不', cls:'nb',   memo:'指定袋で出す(割れ物は紙に包み「危険」と書く)', detail:KD.nb},
+      res: {label:'資源ごみ',       short:'資', cls:'res',  memo:'有害・危険ごみもこの日に出せます', detail:KD.res}
+    },
+    areas:[
+      K('中郷町','中郷町(Ⅰ)','上桜井・下桜井・足洗・松井・石岡(和久)',[1,4],5,[1,3],2),
+      K('中郷町','中郷町(Ⅱ)','石岡',[1,4],2,[2,4],3),
+      K('中郷町','中郷町(Ⅲ)','小野矢指・粟野・日棚・松井(石堰)・足洗(東宿)',[1,4],3,[2,4],5),
+      K('中郷町','中郷町(Ⅳ)','汐見ケ丘・松井(グリーンヒル)・粟野(ガーデンタウン)',[1,4],3,[1,3],2),
+      K('磯原町','磯原町(Ⅰ)','内野・木皿・大塚・上相田',[3,6],2,[1,3],4),
+      K('磯原町','磯原町(Ⅱ)','本町・磯原(1丁目・2丁目)・豊田・木皿(天橋)',[3,6],1,[2,4],5),
+      K('磯原町','磯原町(Ⅲ)','磯原(3〜6丁目)・稼井田・大日本・矢木沢・二ツ島住宅団地・旧磯原',[3,6],4,[2,4],1),
+      K('華川町','華川町(Ⅰ)','上小津田・下小津田・中妻・車(新駒木を除く)・臼場(臼場上)・下相田・小豆畑',[1,4],5,[2,4],3),
+      K('華川町','華川町(Ⅱ)','花園・水沼・馬飼・腰越',[1,4],3,[2,4],3),
+      K('華川町','華川町(Ⅲ)','臼場(臼場上を除く)・車(新駒木)',[3,6],4,[2,4],1),
+      K('関南町','関南町','',[2,5],1,[1,3],4),
+      K('大津町','大津町','',[2,5],4,[1,3],6),
+      K('平潟町','平潟町','黒潮団地・東沢・けやき台団地を含む',[2,5],1,[1,3],3),
+      K('関本町','関本町(Ⅰ)','小川・才丸を除く',[2,5],3,[1,3],1),
+      K('関本町','関本町(Ⅱ)','才丸',[1,4],3,[2,4],3),
+      K('関本町','関本町(Ⅲ)','小川',[1,4],3,[2,4],3),
+    ],
+    contact:'北茨城市 生活環境課 43-1111(内線371〜373)',
+    src:'北茨城市「ごみ分別収集日程表」(令和5年4月改訂)、高萩・北茨城広域事務組合「家庭ごみの出し方ガイドブック」(令和5年4月)',
+    holiday:'年末年始いがいは、祝日・振替休日も収集します。',
+    searchNote:''
+  },
+  taka: {
+    name:'高萩市',
+    order:['burn','nb','paper','pet','bin'],
+    T:{
+      burn: {label:'もやせるごみ',     short:'燃', cls:'burn', memo:'指定袋にチェックを入れて出す', detail:HD.burn},
+      nb:   {label:'もやせないごみ',   short:'不', cls:'nb',   memo:'小型家電・有害危険ごみも この日', detail:HD.nb},
+      paper:{label:'紙・布・缶・金属', short:'紙', cls:'res',  memo:'白い発泡スチロールも この日', detail:HD.paper},
+      pet:  {label:'ペットボトル',     short:'ペ', cls:'pet',  memo:'キャップとラベルは もやせるごみ', detail:HD.pet},
+      bin:  {label:'びん',             short:'び', cls:'bin',  memo:'水洗いして出す', detail:HD.bin}
+    },
+    areas:[
+      H('有明町・肥前町・高戸(行人塚を除く)・赤浜・高浜町東本町の国道6号より東側',[1,4],2,5,[2,4],6,2,5,3),
+      H('本町・春日町・大和町・高浜町東本町の国道6号より西側',[1,4],5,2,[2,4],3,3,6,4),
+      H('安良川団地・安良川第11西常会・ひばりヶ丘団地・小島団地・横川・仙道坂・上君田(久川・田ノ草を除く)・下君田(畜産団地・宿を除く)・大能',[2,5],1,4,[2,4],4,3,6,3),
+      H('安良川(安良川団地・安良川第11西常会・ひばりヶ丘団地を除く)・石滝',[2,5],3,6,[1,3],1,3,6,2),
+      H('秋山(秋山南を除く)・島名(向洋台団地・千代町を除く)・北方',[2,5],4,3,[2,4],1,4,6,2),
+      H('上手綱(仙道坂を除く)・下手綱(小島団地を除く)・石河原・行人塚・望海',[3,6],4,5,[1,3],1,2,5,4),
+      H('台高萩・和野・駒木原・坂東塚・向洋台団地・千代町',[3,6],2,4,[2,4],1,2,1,3),
+      H('福平・中戸川・若栗・上君田(久川・田ノ草)・下君田(畜産団地・宿)・グリーンタウンてつな・秋山南',[1,4],3,5,[2,4],5,3,6,4),
+    ],
+    contact:'高萩市 環境市民協働課 23-7031',
+    src:'高萩市「ごみ収集曜日表」(令和8年4月から使用)、高萩・北茨城広域事務組合「家庭ごみの出し方ガイドブック」(令和5年4月)',
+    holiday:'祝日の収集については、高萩市 環境市民協働課(23-7031)にお問い合わせください。',
+    searchNote:'収集日は令和8年4月からの曜日表にもとづいています。ごみの分け方の説明は、令和5年版のガイドブックにもとづいています。食い違うときは、市の新しい案内をごらんください。'
+  }
+};
+const EMOJI = {burn:'🔥', nb:'🔩', res:'♻️', paper:'📰', pet:'🧴', bin:'🍾', big:'🛋️', haz:'⚠️', carry:'🚚', ng:'🚫'};
+Object.values(CITY).forEach(c=>Object.keys(c.T).forEach(k=>{ c.T[k].ic = EMOJI[k]; }));
+const TOWNS = [...new Set(CITY.kita.areas.map(a=>a.town))];
+
+/* ================= 状態 ================= */
+let st = null;
+try {
+  const s = JSON.parse(localStorage.getItem('kita-gomi-v3') || 'null');
+  if (s && CITY[s.city] && CITY[s.city].areas[s.area]) st = {city:s.city, area:+s.area};
+  else {
+    const old = localStorage.getItem('kita-gomi-area');   // 旧バージョンの設定を引き継ぐ
+    if (old!==null && CITY.kita.areas[+old]) st = {city:'kita', area:+old};
+  }
+} catch(e){}
+const save = ()=>{ try{ localStorage.setItem('kita-gomi-v3', JSON.stringify(st)); }catch(e){} };
+const C = ()=>CITY[st.city];
+const A = ()=> st ? CITY[st.city].areas[st.area] : null;
+const T = ()=>C().T;
+const placeLabel = ()=> !st ? 'お住まいをえらぶ' : (st.city==='kita' ? '北茨城市 '+A().n : '高萩市 地区'+(st.area+1));
+
+let screen = st ? 'home' : 'setup';
+let setup = {step:'city', town:null};
+let query = '';
+let kana = null;
+let hq = '';
+let view = new Date(); view.setDate(1);
+const $app = document.getElementById('app');
+
+/* ================= 音・もじの大きさ(端末に保存) ================= */
+let prefs = {snd:true, size:0};
+try { const s = JSON.parse(localStorage.getItem('kita-gomi-prefs')||'null'); if (s) prefs = {snd: s.snd!==false, size: [0,1,2].includes(+s.size) ? +s.size : 0}; } catch(e){}
+const savePrefs = ()=>{ try{ localStorage.setItem('kita-gomi-prefs', JSON.stringify(prefs)); }catch(e){} };
+const ZOOMS = [1, 1.12, 1.25];
+const applySize = ()=>document.documentElement.style.setProperty('--z', ZOOMS[prefs.size]);
+applySize();
+let AC = null;
+function tone(f, d, t0, vol, type){
+  try {
+    if (!AC) AC = new (window.AudioContext || window.webkitAudioContext)();
+    if (AC.state === 'suspended') AC.resume();
+    const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + (t0||0);
+    o.type = type || 'sine'; o.frequency.value = f;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol || 0.14, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + 0.03);
+  } catch(e){}
+}
+function sfx(kind){
+  if (!prefs.snd) return;
+  switch (kind){
+    case 'open':  tone(523,.08,0,.13); tone(784,.12,.07,.13); break;
+    case 'close': tone(784,.08,0,.11); tone(523,.12,.07,.11); break;
+    case 'back':  tone(392,.07,0,.12); tone(294,.11,.06,.12); break;
+    case 'ok':    tone(523,.10,0,.14); tone(659,.10,.09,.14); tone(784,.20,.18,.14); break;
+    case 'off':   tone(440,.10,0,.12); tone(330,.16,.09,.12); break;
+    default:      tone(700,.06,0,.12,'triangle');
+  }
+  try { if (typeof navigator.vibrate === 'function') navigator.vibrate(kind==='ok' ? [12,40,12] : 10); } catch(e){}
+}
+document.addEventListener('click', e=>{
+  const b = e.target.closest('button, a.tel, a.t, select');
+  if (!b) return;
+  const a = b.dataset ? b.dataset.act : '';
+  if (b.classList.contains('back')) sfx('back');
+  else if (a==='non') sfx('ok');
+  else if (a==='noff' || a==='snd_off') sfx('off');
+  else if (a==='snd_on') {}           // 入れなおしたあとで鳴らす
+  else sfx('tap');
+}, true);
+document.addEventListener('toggle', e=>{
+  const d = e.target;
+  if (d && d.tagName === 'DETAILS') sfx(d.open ? 'open' : 'close');
+}, true);
+
+/* ================= お知らせ(アプリ版のみ・サーバー不要) ================= */
+const NATIVE = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+const LN = NATIVE ? window.Capacitor.registerPlugin('LocalNotifications') : null;
+let nf = {on:false, h:7, m:0, err:''};
+try { const s = JSON.parse(localStorage.getItem('kita-gomi-notify')||'null'); if (s) nf = {on:!!s.on, h:(+s.h>=0?+s.h:7), m:(+s.m>=0?+s.m:0), err:''}; } catch(e){}
+const saveNf = ()=>{ try{ localStorage.setItem('kita-gomi-notify', JSON.stringify({on:nf.on,h:nf.h,m:nf.m})); }catch(e){} };
+// 直近の収集日の朝に、スマホ自身が通知を鳴らす予約をする(iOSの上限64件以内で60件)
+async function scheduleNotices(){
+  if (!LN || !st) return;
+  try {
+    const pend = await LN.getPending();
+    const old = (pend.notifications || []).filter(n=>n.id!==999001).map(n=>({id:n.id}));
+    if (old.length) await LN.cancel({notifications: old});
+    if (!nf.on) return;
+    const now = new Date(), list = [];
+    for (let i=0; i<200 && list.length<60; i++){
+      const d = addDays(now,i), at = new Date(d.getFullYear(), d.getMonth(), d.getDate(), nf.h, nf.m);
+      if (at <= now) continue;
+      const id = +ymd(d);
+      if (d.getMonth()===11 && d.getDate()===31){
+        list.push({id, title:'年末年始の おしらせ', body:'きょうから1月3日まで、ごみの収集はおやすみです。', schedule:{at, allowWhileIdle:true}});
+        continue;
+      }
+      const t = collect(d);
+      if (!t || !t.length) continue;
+      const names = t.map(k=>T()[k].label).join('と');
+      list.push({id, title:'きょうは '+names+' の日', body:'朝8時までに出します。', schedule:{at, allowWhileIdle:true}});
+    }
+    if (list.length) await LN.schedule({notifications:list});
+  } catch(e){ nf.err = 'お知らせの予約に失敗しました。'; }
+}
+async function testNotice(){
+  if (!LN) return;
+  nf.err = '';
+  try {
+    let p = await LN.checkPermissions();
+    if (p.display !== 'granted') p = await LN.requestPermissions();
+    if (p.display !== 'granted'){ nf.err = 'スマホの「設定」で、このアプリの通知を「許可」にしてください。'; render(); return; }
+    await LN.schedule({notifications:[{id:999001, title:'テスト通知', body:'お知らせは、こんなふうに 出ます。', schedule:{at:new Date(Date.now()+10000), allowWhileIdle:true}}]});
+    nf.err = '10秒後に、テストの通知が出ます。ホームボタンを押して、待ってください。';
+    render();
+  } catch(e){ nf.err = 'テスト通知を出せませんでした。'; render(); }
+}
+async function setNotice(on){
+  if (!LN) return;
+  nf.err = '';
+  if (on){
+    try {
+      let p = await LN.checkPermissions();
+      if (p.display !== 'granted') p = await LN.requestPermissions();
+      if (p.display !== 'granted'){ nf.on = false; nf.err = 'スマホの「設定」で、このアプリの通知を「許可」にしてください。'; saveNf(); render(); return; }
+    } catch(e){ nf.err = '通知を使えませんでした。'; render(); return; }
+  }
+  nf.on = on; saveNf(); await scheduleNotices(); render();
+}
+
+/* ================= 収集日の計算 ================= */
+function collect(d){
+  const m = d.getMonth()+1, day = d.getDate();
+  if ((m===12 && day===31) || (m===1 && day<=3)) return null;   // 年末年始
+  const w = d.getDay(), n = Math.ceil(day/7), out = [];
+  for (const [k, ws, nth] of A().r){
+    if (ws.includes(w) && (!nth || nth.includes(n))) out.push(k);
+  }
+  const ord = C().order;
+  return out.sort((x,y)=>ord.indexOf(x)-ord.indexOf(y));
+}
+const addDays = (d,n)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+const sameDay = (a,b)=>a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();
+const md = d => `${d.getMonth()+1}/${d.getDate()}(${W[d.getDay()]})`;
+const jd = d => `${d.getMonth()+1}月${d.getDate()}日(${W[d.getDay()]})`;
+function untilLabel(d, now){
+  const a = new Date(now.getFullYear(),now.getMonth(),now.getDate()), b = new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  const n = Math.round((b-a)/86400000);
+  return n===0 ? 'きょう(朝8時まで)' : n===1 ? 'あした' : n===2 ? 'あさって' : n+'日後';
+}
+function nextCollect(key, now){
+  const start = now.getHours() < 8 ? 0 : 1;      // 朝8時をすぎたら、きょうの分は数えない
+  for (let i=start;i<=70;i++){
+    const d = addDays(now,i), t = collect(d);
+    if (t && t.includes(key)) return {d, today: sameDay(d,now)};
+  }
+  return null;
+}
+
+/* ================= 共通パーツ ================= */
+function banners(t, small){
+  const sm = small ? ' sm' : '';
+  if (t===null) return `<div class="panel none${sm}"><span class="ic">🎍</span><div class="lb">年末年始は おやすみ</div></div>`;
+  if (!t.length) return `<div class="panel none${sm}"><span class="ic">🙂</span><div class="lb">${small ? 'ごみの日では ありません' : 'ごみの日では<br>ありません'}</div></div>`;
+  return t.map(k=>{ const x = T()[k];
+    return `<details class="panel ${x.cls}${sm}"><summary><span class="ic">${x.ic}</span><span class="lb">${x.label}</span><span class="mm">${x.memo}</span>`+
+      `<span class="more"><span class="m1">▼ なにを出すか 見る</span><span class="m2">▲ とじる</span></span></summary><div class="dbody">${x.detail}</div></details>`;
+  }).join('');
+}
+function chipsFor(t){
+  if (t===null) return '<span class="small">おやすみ</span>';
+  if (!t.length) return '<span class="small">—</span>';
+  return t.map(k=>`<span class="chip ${T()[k].cls}">${T()[k].label}</span>`).join('');
+}
+const dayRow = d => `<div class="row"><div class="d"><b>${d.getMonth()+1}/${d.getDate()}</b>(${W[d.getDay()]})</div><div>${chipsFor(collect(d))}</div></div>`;
+const backBtn = ()=>'<button class="back" data-go="home">← もどる</button>';
+
+/* ================= 画面: 場所えらび ================= */
+function setupHTML(){
+  const st1 = setup.step, isTaka = setup.city==='taka';
+  const total = isTaka ? 2 : 3;
+  const cur = st1==='city' ? 1 : (st1==='town' ? 2 : (isTaka ? 2 : 3));
+  const dots = '<div class="steps">' + Array.from({length:total},(_,i)=>`<span class="dot${i+1<=cur?' on':''}"></span>`).join('') + `<span class="stn">${cur} / ${total}</span></div>`;
+  let back = '';
+  if (st1==='city') back = st ? '<button class="back" data-go="home">← もどる</button>' : '';
+  else if (st1==='town') back = '<button class="back" data-act="setupback">← もどる</button>';
+  else back = `<button class="back" data-act="${isTaka ? 'setupback' : 'towns'}">← もどる</button>`;
+  let h = '';
+  if (st1==='city'){
+    h += `<div class="sethero"><div class="appicon"><span>ごみ</span><span>の日</span></div><div class="sh1">ごみの日</div><div class="sh2">今日は なんのごみの日か、ひと目で</div></div>`;
+  } else {
+    h += `<div class="sethero mini"><div class="sh1">${st1==='town' ? '北茨城市' : (isTaka ? '高萩市' : setup.town)}</div></div>`;
+  }
+  h += '<div class="setcard">' + (back ? back : '') + dots;
+  if (st1==='city'){
+    h += '<h1 class="sq">お住まいの市を<br>えらんでください</h1>';
+    h += '<div class="cgrid">'+
+      '<button class="ccard" data-act="city" data-v="kita"><span class="cb a">北</span><b>北茨城市</b><small>中郷・磯原<br>華川 ほか</small></button>'+
+      '<button class="ccard" data-act="city" data-v="taka"><span class="cb b">高</span><b>高萩市</b><small>8つの地区<br>から えらぶ</small></button></div>';
+  } else if (st1==='town'){
+    h += '<h1 class="sq">どの町ですか?</h1><div class="tgrid">' + TOWNS.map(t=>`<button class="tt" data-act="town" data-v="${t}">${t}</button>`).join('') + '</div>';
+  } else if (isTaka){
+    h += '<h1 class="sq">お住まいの場所は<br>どこですか?</h1><div class="hint">自分の町の名前が 書いてあるものを えらびます</div><div class="alist">' +
+      CITY.taka.areas.map((a,i)=>`<button class="acard" data-act="area" data-v="${i}"><span class="an">地区 ${i+1}</span><span class="ap">${a.p}</span></button>`).join('') + '</div>';
+  } else {
+    const list = CITY.kita.areas.map((a,i)=>[a,i]).filter(([a])=>a.town===setup.town);
+    h += `<h1 class="sq">${setup.town}の<br>どのあたりですか?</h1><div class="hint">自分の町の名前が 書いてあるものを えらびます</div><div class="alist">` +
+      list.map(([a,i])=>`<button class="acard" data-act="area" data-v="${i}"><span class="an">${a.n}</span><span class="ap">${a.p}</span></button>`).join('') + '</div>';
+  }
+  h += '</div><div class="sethint">えらんだあとも、「せってい」から かえられます</div>';
+  return h;
+}
+
+/* ================= 画面: ホーム ================= */
+function nyNear(now){ const m=now.getMonth()+1, d=now.getDate(); return (m===12&&d>=15)||(m===1&&d<=10); }
+function notifyBox(){
+  const tl = `朝${nf.h}時${nf.m ? nf.m+'分' : ''}`;
+  const opts = ['6:00','6:30','7:00','7:30','8:00'].map(v=>{ const [hh,mm]=v.split(':').map(Number); return `<option value="${v}"${hh===nf.h&&mm===nf.m?' selected':''}>朝${hh}時${mm?mm+'分':''}</option>`; }).join('');
+  return '<div class="box"><h2>🔔 毎朝の お知らせ</h2>' + (nf.on
+    ? `<div class="stat">ON(毎朝 ${tl})</div><button class="btn sub" data-act="noff">お知らせを やめる</button>`
+    : `<div class="small" style="font-size:17px">ごみの日の朝に、スマホが お知らせします。</div><button class="btn" data-act="non">お知らせを ONにする</button>`)
+    + `<button class="btn sub" data-act="ntest">🔔 テスト(10秒後に 通知が出ます)</button>`
+    + (nf.err ? `<div class="alert">${nf.err}</div>` : '')
+    + `<details class="plain" style="margin-top:10px"><summary>お知らせの時間をかえる</summary><select id="ntime">${opts}</select></details></div>`;
+}
+function homeHTML(){
+  const now = new Date(), t = collect(now), tm = addDays(now,1);
+  const wc = d => d.getDay()===0 ? 'sun' : d.getDay()===6 ? 'sat' : '';
+  const tile = (go, ic, tl) => `<button class="tile" data-go="${go}"><span class="ti">${ic}</span><span class="tl">${tl}</span></button>`;
+  let h = `<div class="hero"><button class="place" data-go="setup">📍 ${placeLabel()} <span class="pe">▼</span></button>`+
+    `<div class="k">きょう</div><div class="date">${now.getMonth()+1}月${now.getDate()}日</div>`+
+    `<div class="wdp ${wc(now)}">${W[now.getDay()]}曜日</div><div class="y">${now.getFullYear()}年</div></div>`;
+  h += `<div class="stack">${banners(t)}</div>`;
+  if (t && t.length) h += `<div class="note">⏰ ${now.getHours()<8 ? '朝8時までに 出します' : '朝8時を すぎました'}</div>`;
+  h += `<div class="sect">あした ${jd(tm)}</div>` + banners(collect(tm), true);
+  if (nyNear(now)){
+    h += `<div class="alert">年末年始は 12月31日〜1月3日まで、ごみの収集はおやすみです。<button data-go="ny">くわしく見る</button></div>`;
+  }
+  if (NATIVE && !nf.on) h += `<button class="notebar" data-go="settings">🔔 毎朝の お知らせを ONにする</button>`;
+  h += `<button class="cta" data-go="search"><span class="ct"><span class="mg">🔍</span>しらべる</span><span class="cs">これは どう すてるの?</span><span class="cn">※捨てたいものの検索</span></button>`;
+  h += `<button class="danger" data-go="danger"><span class="dt"><span class="di">⚠️</span>きけんなごみ</span><span class="ds">電池・スプレー缶・ライター・刃物など</span><span class="dn2">出し方に ちゅうい</span></button>`;
+  h += '<div class="tiles">' + tile('plan','📅','よてい') + tile('ny','🎍','年末年始') + tile('carry','🚚','持ち込み') +
+       tile('contact','☎','問い合わせ') + tile('extra','📖','こんなとき') + tile('settings','⚙️','せってい') + '</div>';
+  h += `<div class="hsearch"><div class="hs-t">✍️ すてたいものを 入れると<br>出し方が 出ます</div><div class="sbox"><input id="hq" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ここに 入力" value="${hq.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}"><button data-act="hclear" aria-label="けす">✕</button></div><div id="hres">${homeResultsHTML()}</div></div>`;
+  if (!NATIVE){
+    h += `<details class="plain"><summary>ホーム画面に置くと、すぐ開けます</summary><ul>
+        <li>iPhone: 画面の下の「共有」ボタン → 「ホーム画面に追加」</li>
+        <li>Android: 画面の右上のメニュー → 「ホーム画面に追加」</li></ul></details>`;
+  }
+  h += `<footer>出典: 北茨城市「ごみ分別収集日程表」(令和5年4月改訂)、高萩市「ごみ収集曜日表」(令和8年4月から使用)、高萩・北茨城広域事務組合「家庭ごみの出し方ガイドブック」(令和5年4月)<br>個人が作成した非公式アプリです。変更や臨時の収集日は、市の公式の情報をごらんください。<div class="ft"><b>お問い合わせ</b><br>北茨城市 生活環境課 <a href="tel:0293431111">0293-43-1111</a>(内線371〜373)<br>高萩市 環境市民協働課 <a href="tel:0293237031">0293-23-7031</a></div><span class="lab">NAGAYAMA LAB</span></footer>`;
+  return h;
+}
+
+/* ================= 画面: 検索 ================= */
+const norm = s => s.normalize('NFKC').toLowerCase().replace(/\s+/g,'')
+  .replace(/[\u30a1-\u30f6]/g, c=>String.fromCharCode(c.charCodeAt(0)-0x60));
+const INDEX = DICT.map(d=>({d, n:norm(d[0]), r:norm(d[3])}));
+function doSearch(q){
+  q = norm(q); if (!q) return [];
+  const res = [];
+  for (const x of INDEX){
+    let s = -1;
+    if (x.n===q || x.r===q) s = 0;
+    else if (x.n.startsWith(q) || x.r.startsWith(q)) s = 1;
+    else if (x.n.includes(q) || x.r.includes(q)) s = 2;
+    if (s>=0) res.push([s,x.d]);
+  }
+  res.sort((a,b)=>a[0]-b[0]);
+  return res.map(a=>a[1]);
+}
+const KANA_ROWS = [['あ','あいうえおぁぃぅぇぉゔ'],['か','かきくけこがぎぐげご'],['さ','さしすせそざじずぜぞ'],['た','たちつてとだぢづでどっ'],['な','なにぬねの'],
+  ['は','はひふへほばびぶべぼぱぴぷぺぽ'],['ま','まみむめも'],['や','やゆよゃゅょ'],['ら','らりるれろ'],['わ','わをんゐゑ'],['英数','']];
+function rowOf(x){
+  const c = x.r.charAt(0);
+  for (const [name, chars] of KANA_ROWS) if (chars && chars.includes(c)) return name;
+  return '英数';
+}
+function kanaHTML(row){
+  const items = INDEX.filter(x=>rowOf(x)===row).sort((a,b)=>a.r<b.r?-1:a.r>b.r?1:0);
+  return `<div class="cnt">「${row}」の ごみ: ${items.length}件(さわると ひらきます)</div>` +
+    items.map(x=>{ const c = cardInfo(x.d);
+      return `<details class="drow"><summary><span class="dn">${x.d[0]}</span><span class="dl ${c.cls}">${c.ic} ${c.label}</span></summary>${resultCard(x.d)}</details>`;
+    }).join('');
+}
+const QUICK = ['ペットボトル','電池','傘','布団','紙おむつ','電子レンジ','蛍光灯','ライター','新聞紙','スプレー缶','生ゴミ','食用油'];
+
+// 辞典の1件を、いまの市のルールで「どの日に出すか」に直す
+function cardInfo0(d){
+  const kita = st.city==='kita', cat = d[1];
+  if (cat===0) return {label:T().burn.label, cls:'burn', key:'burn', how:'指定袋(「もやせる」にチェック)で、朝8時までに集積所へ。'};
+  if (cat===1) return {label:T().nb.label,   cls:'nb',   key:'nb',   how:'指定袋(「もやせない」にチェック)で、朝8時までに集積所へ。'};
+  if (cat===2){
+    if (kita) return {label:'資源ごみ', cls:'res', key:'res', how:'決められた出し方で、朝8時までに集積所へ。'};
+    if (/小型家電リサイクル/.test(d[2])) return {label:'小型家電リサイクル製品', cls:'nb', key:'nb', how:'もやせないごみの日に、45ℓ以下の透明・半透明の袋で出します。電池は外して「有害・危険ごみ」へ。'};
+    if (d[0]==='ペットボトル') return {label:'ペットボトル', cls:'pet', key:'pet', how:'キャップとラベルを取り、水洗いして、45ℓ以下の透明・半透明の袋へ。キャップとラベルは「もやせるごみ」。'};
+    if (/びん/.test(d[0])) return {label:'びん', cls:'bin', key:'bin', how:'キャップを取り、水洗いして、45ℓ以下の透明・半透明の袋へ。'};
+    return {label:'紙・布・缶・金属など', cls:'res', key:'paper', how:'種類ごとに出します。紙はひもで十字に、布・缶・金属は45ℓ以下の透明・半透明の袋へ。'};
+  }
+  if (cat===3) return {label:'粗大ごみ', cls:'big', how:'集積所には出せません。先に電話で申し込みます。高北清掃センター 44-8853。処理券を貼って、玄関先に出します(1枚600円)。'};
+  if (cat===4) return kita
+    ? {label:'有害・危険ごみ', cls:'haz', key:'res', how:'資源ごみの日に、中が見える透明な袋で出せます。'}
+    : {label:'有害・危険ごみ', cls:'haz', key:'nb',  how:'もやせないごみの日に、45ℓ以下の透明・半透明の袋で出せます。モバイルバッテリーなどのリチウムイオン電池は必ずここへ。'};
+  if (cat===5) return {label:'清掃センターへ持ち込み', cls:'carry', how:'高北清掃センターへ自分で持って行きます(月〜土 9〜12時・13〜16時30分)。手数料は20kgまで100円、以後10kgごとに100円。電話 44-8853。'};
+  return {label:'市では処理できません', cls:'ng', how:'販売店や専門の業者に相談してください。'};
+}
+function cardInfo(d){
+  const c = cardInfo0(d);
+  c.ic = (d[1]>=3) ? EMOJI[c.cls] : (EMOJI[c.key] || EMOJI[c.cls]);
+  c.plain = d[1]>=5;              // 「これは〜です」と言いにくいもの
+  if (d[1]===5) c.label = '清掃センターへ 持ち込み';
+  return c;
+}
+function resultCard(d){
+  const c = cardInfo(d), now = new Date();
+  let when = '';
+  if (c.key){
+    const n = nextCollect(c.key, now);
+    if (n) when = `<div class="when"><div class="wl">つぎに 出せる日</div><div class="wdate">${jd(n.d)}</div><div class="wrel">${untilLabel(n.d,now)}</div><div class="wn">(${T()[c.key].label}の日)</div></div>`;
+  }
+  const notes = d[2] ? d[2].split('●').map(s=>s.trim()).filter(Boolean).map(s=>'・'+s).join('<br>') : '';
+  return `<div class="ans ${c.cls}">${dangerWarn(d)}<div class="nm">${d[0]}</div>${c.plain?'':'<div class="is">これは</div>'}`+
+    `<div class="lab"><span class="ic">${c.ic}</span><span class="lt">${c.label}${c.plain?'':'<span class="de"> です</span>'}</span></div>${when}`+
+    `<div class="how">${c.how}</div>${notes?`<div class="nt">${notes}</div>`:''}</div>`;
+}
+function resultsHTML(){
+  if (!query.trim() && kana) return kanaHTML(kana);
+  if (!query.trim()){
+    return '<div class="small" style="margin-top:14px;font-size:17px">よく調べられるもの</div><div class="chips">'+
+      QUICK.map(q=>`<button class="chipb" data-act="quick" data-v="${q}">${q}</button>`).join('')+'</div>'+
+      (C().searchNote ? `<div class="srcnote">${C().searchNote}</div>` : '');
+  }
+  const r = doSearch(query);
+  if (!r.length){
+    return `<div class="notice">「${query.replace(/</g,'&lt;')}」は 見つかりませんでした。<br>ほかのことばで さがしてみてください。<br>それでも分からないときは、高北清掃センター 44-8853 へ。</div>`;
+  }
+  const shown = r.slice(0,30);
+  return `<div class="cnt">「${query.replace(/</g,'&lt;')}」の けっか: ${r.length}件${r.length>30?'(上の30件を表示。ことばを くわしくすると、しぼれます)':''}</div>` + shown.map(resultCard).join('') +
+    (C().searchNote ? `<div class="srcnote">${C().searchNote}</div>` : '');
+}
+function searchHTML(){
+  return backBtn() + '<h1>なにを すてますか?</h1>'+
+    `<div class="sbox"><input id="q" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ここに 入力" value="${query.replace(/"/g,'&quot;')}"><button data-act="clearq" aria-label="けす">✕</button></div>`+
+    '<div class="hint">ひらがな・カタカナ・漢字 どれでもOK。例: かさ ・ ペットボトル</div>'+
+    '<div class="kanahead">あいうえお順で さがす</div><div class="kana">'+KANA_ROWS.map(([n])=>`<button class="kb${kana===n?' on':''}" data-act="kana" data-v="${n}">${n}</button>`).join('')+'</div>'+
+    '<div id="results">'+resultsHTML()+'</div>';
+}
+
+/* ================= 画面: 電池・充電式 ================= */
+function batteryHTML(){
+  const kita = st.city==='kita', now = new Date();
+  const n = nextCollect(kita ? 'res' : 'nb', now);
+  let h = backBtn() + '<h1>🔋 電池・充電式の出し方</h1>';
+  h += '<div class="alert" style="margin-top:0">ごみ収集車やごみ処理施設の火事を防ぐため、電池や充電式のものは、ほかのごみと分けて出します。</div>';
+  if (n) h += `<div class="when simple" style="margin-top:14px"><div class="wl">つぎに 出せる日(${kita?'資源ごみの日':'もやせないごみの日'})</div><div class="wdate">${jd(n.d)}</div><div class="wrel">${untilLabel(n.d,now)}</div></div>`;
+  h += '<div class="box"><h2>出すもの(有害・危険ごみ)</h2>' +
+    (kita
+      ? '蛍光灯・電球・乾電池・水銀体温計<br>電子たばこ・携帯扇風機など、電池が取り外せない充電式の機器'
+      : '蛍光灯・乾電池<br>リチウムイオン電池(小型充電式電池)<br>リチウムイオン電池が取り外せない機器など') + '</div>';
+  h += '<div class="box"><h2>出し方</h2><ul class="bl">' +
+    (kita
+      ? '<li>中身が見える、45ℓ以下の<b>透明・半透明の袋</b>に入れます。(有害・危険ごみ用の指定袋はありません)</li>'+
+        '<li>乾電池・ボタン電池・リチウム電池は、<b>端子の部分をセロハンテープなどで覆って</b>絶縁します。電極どうしが触れ合うと電気が発生し、火事の原因になります。</li>'
+      : '<li>製品からリチウムイオン電池を取り外し、電極部をテープなどで絶縁してから、<b>必ず収集日の当日(午前8時まで)</b>に、有害・危険ごみとして出します。</li>'+
+        '<li>取り外せないときは、無理に取り外そうとせず、<b>製品のまま</b>出します。</li>'+
+        '<li>45ℓ以下の透明・半透明の袋に入れます。</li>') + '</ul></div>';
+  if (!kita){
+    h += '<div class="alert" style="background:var(--haz-bg);color:var(--haz)">ふくらんだ(膨張した)リチウムイオン電池は、ごみ集積所に出せません。空き缶などに入れて、高北清掃センターへ直接持ち込みます。<br><a class="tel" style="color:inherit" href="tel:0293448853">📞 0293-44-8853</a></div>';
+  }
+  h += '<div class="box" style="box-shadow:inset 0 0 0 3px var(--haz)"><h2 style="color:var(--haz)">ぜったいに ダメ</h2>' +
+    (kita
+      ? '電子たばこ・携帯扇風機など、電池が取り外せない機器を、「もやせるごみ」「もやせないごみ」の袋に入れること。'
+      : 'モバイルバッテリーなどのリチウムイオン電池を、有害・危険ごみ以外で出すこと。必ず「有害・危険ごみ」で出します。') + '</div>';
+  h += '<div class="box"><h2>電池が使われている 主なもの</h2><div style="font-size:17px">モバイルバッテリー・加熱式たばこ・電子たばこ・コードレス掃除機・充電式の電気カミソリ・充電式の電動歯ブラシ・充電式の電動工具・デジタルカメラ・ビデオカメラ・ハンディ扇風機・ロボット掃除機・ゲーム機・充電式のおもちゃ・作業服用ファン・ワイヤレスイヤホン・携帯電話・スマートフォン など</div>'+
+    '<div class="small" style="margin-top:10px;font-size:16px;color:var(--fg)">「充電できるもの」や、「電源につながなくても動いたり光ったりするもの」には、マークがなくても、リチウムイオン電池が使われている場合があります。</div>'+
+    '<div class="small" style="margin-top:6px">(高萩市公式ページより)</div></div>';
+  h += '<div class="box"><h2>お店でも回収しています</h2>'+
+    '<div style="font-size:17px">ボタン電池や、小型充電式電池(ニカド・ニッケル水素・リチウムイオン)は、機器から取り外して端子を絶縁し、有害・危険ごみの日に出すか、お近くの回収協力店へ持って行けます。<br>協力店は、一般社団法人JBRC(jbrc.com)、ボタン電池回収センター(botankaishu.jp)で検索できます。</div></div>';
+  h += '<div class="small" style="margin-top:12px">出典: ' + C().src + (kita ? '' : '、高萩市「リチウムイオン電池の処分方法」') + '</div>';
+  return h;
+}
+
+/* ================= 画面: 問い合わせ先 ================= */
+function contactHTML(){
+  const kita = st.city==='kita';
+  const tel = (num, label) => `<a class="tel" href="tel:${num.replace(/-/g,'')}">📞 ${num}</a>`;
+  const card = (t, body) => `<div class="box"><h2>${t}</h2>${body}</div>`;
+  let h = backBtn() + '<h1>☎ 問い合わせ先</h1>';
+  if (kita){
+    h += card('ごみの収集日・ごみ集積所について', '<b>北茨城市 生活環境課</b><br>'+tel('0293-43-1111')+'<div class="small">内線 371〜373</div>');
+  } else {
+    h += card('ごみの収集日・ごみ集積所について', '<b>高萩市 環境市民協働課</b><br>'+tel('0293-23-7031')+'<div class="small">〒318-8511 高萩市本町1-100-1 高萩市役所 2階<br>市役所の開庁時間: 午前8時30分〜午後5時15分(土・日・祝日、12月29日〜1月3日を除く)</div>');
+  }
+  h += card(kita ? 'ごみの分別・持ち込み・粗大ごみの申し込み' : 'ごみの分別・捨て方・粗大ごみの申し込み',
+    '<b>高北清掃センター</b>(高萩・北茨城広域事務組合)<br>'+tel('0293-44-8853')+
+    '<div class="small">〒319-1555 北茨城市中郷町小野矢指959-1</div>');
+  h += '<button class="btn sub" data-go="carry">🚚 持ち込みの くわしい案内</button>';
+  h += card('粗大ごみ', '<ul class="bl"><li>ごみ集積所には出せません。先に高北清掃センターに電話で申し込みます。</li><li>粗大ごみ処理券を貼って、玄関先に出します。</li><li>処理券: 1枚600円(大きさで1枚か2枚)</li></ul>');
+  h += '<div class="small" style="margin-top:12px">電話番号の市外局番は、高萩市の公式ページの表記にもとづいて入れています。つながらないときは、市の公式ページでご確認ください。</div>';
+  return h;
+}
+
+
+
+/* ================= ホームの検索欄 ================= */
+function homeResultsHTML(){
+  if (!hq.trim()) return '<div class="hint">例: かさ ・ ペットボトル ・ でんち</div>';
+  const r = doSearch(hq);
+  if (!r.length) return `<div class="notice">「${hq.replace(/</g,'&lt;')}」は 見つかりませんでした。<br>ほかのことばで 入れてみてください。</div>`;
+  return r.slice(0,3).map(resultCard).join('') + (r.length>3 ? `<button class="btn sub" data-act="hmore">ほかの ${r.length-3}件も 見る</button>` : '');
+}
+function dangerWarn(d){
+  const bad = d[1]===4 || /危険|穴|ガスを抜|絶縁|発火|充電式/.test(d[2]) || /電池|バッテリー|ライター|スプレー|ボンベ|充電|ホットカーペット/.test(d[0]);
+  return bad ? '<div class="warn">⚠️ きけん! 出し方に ちゅうい</div>' : '';
+}
+
+/* ================= 画面: きけんなごみ ================= */
+function dangerHTML(){
+  const kita = st.city==='kita', now = new Date();
+  const hz = kita ? 'res' : 'nb', sp = kita ? 'res' : 'paper';
+  const nd = key => { const n = nextCollect(key, now); return n ? `<div class="nd">つぎに 出せる日<br><b>${jd(n.d)}</b> <span>${untilLabel(n.d,now)}(${T()[key].label}の日)</span></div>` : ''; };
+  const X = (ic, title, sub, body) => `<details class="xrow dg"><summary><span class="xi">${ic}</span><span class="xt">${title}<span class="xs">${sub}</span></span><span class="xc">▼</span></summary><div class="xb">${body}</div></details>`;
+  let h = backBtn() + '<h1>⚠️ きけんなごみ</h1>';
+  h += '<div class="alert" style="margin-top:0;background:var(--haz-bg);color:var(--haz)">出し方を まちがえると、火事や けがの もとに なります。かならず 守ってください。</div><div class="hint">さわると ひらきます</div>';
+  h += X('🔋','電池・充電式のもの','端子にテープ・透明な袋で出す',
+    nd(hz) + '<ul><li>端子の部分を、セロハンテープなどで 覆います。</li><li>中が見える、45ℓ以下の 透明・半透明の袋に 入れます。</li><li>モバイルバッテリー・電子たばこ・携帯扇風機など、電池が 取り外せないものも「有害・危険ごみ」です。</li><li>「もやせるごみ」「もやせないごみ」の袋には、<b>ぜったいに</b> 入れません。</li></ul>' +
+    (kita ? '' : '<p><b>ふくらんだ電池は、集積所に出せません。</b>空き缶などに入れて、高北清掃センターへ 直接 持ち込みます。</p>') +
+    '<button class="btn sub" data-go="battery">電池のくわしい案内を 見る</button>');
+  h += X('🥫','スプレー缶・カセットボンベ','使い切って 穴をあける',
+    nd(sp) + '<ul><li>スプレー缶は、中身を 完全に 使い切ってから、穴を あけて 出します。</li><li>カセットボンベも、中身を 使い切り、穴を あけて ガスを 抜きます。</li><li>ふたなどの プラスチックは「もやせるごみ」です。</li><li>使っていないものは、販売店か 清掃センターに 相談します。</li></ul>');
+  h += X('🔥','ライター','使い切って 有害・危険ごみへ',
+    nd(hz) + '<ul><li>使い捨てライターは、「有害・危険ごみ」です。</li><li>中身は 使い切ってから 出します。</li></ul>');
+  h += X('💡','蛍光灯・電球・水銀体温計','有害・危険ごみへ',
+    nd(hz) + '<ul><li>蛍光灯・電球・LED電球・グローランプ・水銀体温計・水銀血圧計などは、「有害・危険ごみ」です。</li><li>ほかのごみに まざると、発火したり、破れて 飛び散る おそれが あります。</li><li>蛍光灯・電球は、買ったときの 厚紙ケースに 入れて 出しても よいです。</li><li>長い蛍光灯は、袋から はみ出しても よいです。数本あるときは、ひもで しばります。</li></ul>');
+  h += X('🔪','包丁・ナイフ・刃物','紙で包んで「危険」と書く',
+    nd('nb') + '<ul><li>包丁・ナイフ・カッターナイフ・カミソリ・画鋲・きり・のこぎり・鎌など。</li><li>刃の部分を 厚紙や紙などで 包み、指定ごみ袋に「危険」と書いて 出します。(もやせないごみ)</li></ul>');
+  h += X('🪟','割れたガラス・食器','新聞紙で包んで「危険」と書く',
+    nd('nb') + '<ul><li>割れた ガラス・食器・鏡・瀬戸物など。</li><li>新聞紙などで 包み、指定ごみ袋に「危険」「割れガラス」(または「割れ物」)と書いて 出します。(もやせないごみ)</li></ul>');
+  h += X('💉','注射針(在宅医療)','ごみには出せません',
+    '<ul><li>往診や訪問診療で使う注射針・点滴針、針付きのチューブ類、ペン型自己注射器の針・自己穿刺針は、<b>受け取った医療機関・薬局へ 返します。</b></li><li>必ず キャップを付けて、空きびんなど、中身の見える容器に 入れて 保管します。</li></ul>');
+  h += X('🧨','市では 出せないもの','販売店・専門の業者へ',
+    '<ul><li>プロパンガスボンベ・ガスボンベ・ガソリン・灯油・機械油・塗料・バッテリー・発煙筒・消火器 など。</li><li>ごみ集積所にも、清掃センターにも 出せません。販売店や、専門の業者に 相談します。</li></ul><button class="btn sub" data-go="extra">消火器は「こんなとき」へ</button>');
+  h += '<div class="small" style="margin-top:14px">出典: 各市の資料・令和5年版ガイドブック。' + (kita ? '' : '曜日は令和8年4月からの曜日表、分け方の説明は令和5年版ガイドブックにもとづいています。') + '変わっていることがあるので、迷ったら、高北清掃センター 0293-44-8853 へ。</div>';
+  return h;
+}
+
+/* ================= 画面: 持ち込み ================= */
+function carryHTML(){
+  const kita = st.city==='kita';
+  const names = c => DICT.filter(d=>d[1]===c).map(d=>d[0]).join('・');
+  let h = backBtn() + '<h1>🚚 持ち込み</h1><div class="hint">高北清掃センターへ、ごみを 自分で 持って行くとき</div>';
+  h += '<div class="box"><h2>場所と電話</h2><b>高北清掃センター</b><br>北茨城市中郷町小野矢指959-1<br><a class="tel" href="tel:0293448853">📞 0293-44-8853</a></div>';
+  h += '<div class="box"><h2>受け付けの時間</h2><ul class="bl"><li>月曜日〜土曜日<br><b>午前9時〜12時</b><br><b>午後1時〜4時30分</b></li><li>日曜日と、年末年始(12月31日〜1月3日)は おやすみです。</li><li>土曜日・祝日・振替休日は、いつも通りです。</li><li>午前は12時まで、午後は4時30分までに、ごみを降ろして 出られるように お願いします。混んでいるときは、時間に 余裕を持って 行きます。</li></ul></div>';
+  h += '<div class="box"><h2>手数料(現金)</h2><ul class="bl"><li>20kgまで <b>100円</b></li><li>20kgを こえたら、10kgごとに <b>100円</b> を 足します。</li><li>れい: 50kgのとき → 100円 + 300円 = <b>400円</b></li></ul></div>';
+  h += '<div class="box"><h2>行ったときの 流れ</h2><ol class="bl"><li>計量棟の 入口へ 行きます。</li><li>計量カードを もらいます。(車ごと 総重量を 量ります)</li><li>ごみを おろします。(係員が 案内します)</li><li>計量棟の 出口で、計量カードを 返します。ごみの 正味の 重さを 計算して、手数料を 現金で 払います。</li></ol></div>';
+  if (!kita) h += '<div class="alert" style="background:var(--haz-bg);color:var(--haz)">ふくらんだ リチウムイオン電池は、ごみ集積所に 出せません。空き缶などに入れて、ここへ 直接 持ち込みます。</div>';
+  h += '<div class="box"><h2>守ること</h2><ul class="bl"><li>指定ごみ袋・粗大ごみ処理券は いりません。でも、<b>分けて</b> 持って行きます。(もやせるごみ・もやせないごみ・粗大ごみ・有害・危険ごみ・資源ごみ)</li><li>袋に入れるときは、透明・半透明の袋を 使います。</li><li>高萩市・北茨城市の ごみだけです。ほかの市のごみと、産業廃棄物は 持ち込めません。</li><li>免許証などで、住所を 確認されます。</li><li>店の名前が 入った車で 持ち込むと、事業系ごみに なります。</li><li>荷降ろしは、原則 持ち込んだ人が 自分で します。</li><li>ごみの 中身を 確認されて、持ち帰りに なる ことが あります。</li><li>構内は 一方通行です。ゆっくり 走ります。</li></ul></div>';
+  h += '<div class="box"><h2>たくさん 持ち込むとき</h2>木くず・木の枝(長さ2m以下・太さ15cm以下)・木製の家具・草(土と根は 取りのぞく)・畳・大きな プラスチックなどを 多く 持ち込むときは、先に 電話で 問い合わせます。<br><a class="tel" href="tel:0293448853">📞 0293-44-8853</a></div>';
+  h += `<details class="xrow"><summary><span class="xi">🚚</span><span class="xt">「持ち込み」の ごみ<span class="xs">集積所に出さず、直接 持って行くもの</span></span><span class="xc">▼</span></summary><div class="xb"><p>${names(5)}</p><p class="s">新築・改築・取りこわしで 出るものは、持ち込めないものがあります。電話で 確認します。</p></div></details>`;
+  h += `<details class="xrow"><summary><span class="xi">🚫</span><span class="xt">持ち込めない ごみ<span class="xs">市では 処理できないもの</span></span><span class="xc">▼</span></summary><div class="xb"><p>${names(6)}</p><p class="s">販売店や、専門の業者に 相談します。</p></div></details>`;
+  h += '<div class="small" style="margin-top:12px">出典: 令和5年版ガイドブック(「清掃センターへごみを持ち込む場合」)' + (kita ? '' : '、高萩市「ごみ収集曜日表」') + '</div>';
+  return h;
+}
+
+/* ================= 画面: こんなとき ================= */
+function extraHTML(){
+  const kita = st.city==='kita';
+  const t = n => `<a class="t" href="tel:${n.replace(/[^0-9]/g,'')}">☎ ${n}</a>`;
+  const X = (ic, title, body) => `<details class="xrow"><summary><span class="xi">${ic}</span><span class="xt">${title}</span><span class="xc">▼</span></summary><div class="xb">${body}</div></details>`;
+  let h = backBtn() + '<h1>📖 こんなとき</h1><div class="hint">さわると ひらきます</div>';
+
+  h += X('🧯','消火器', kita
+    ? `<p>ごみ集積所や清掃センターでは処理できません。受け入れ先の例:</p><ul><li>大平産業(株) ${t('0293-22-1211')}</li><li>関彰商事(株) 北茨城LPGセンター ${t('0293-42-4511')}</li><li>(有)北茨城綜合防災 ${t('0293-46-3428')}</li></ul><p class="s">受け入れ先は一例です。事前に電話で確認してください。(令和5年版ガイドブックより)</p>`
+    : `<p>ごみ集積所や高北清掃センターでは回収できません。</p><ol><li>市内の特定窓口に持ち込むか、収集運搬を頼みます。(料金は事前に確認)<br>太平産業株式会社 高萩営業所 ${t('0293-22-1211')}</li><li>「エコサイクルセンター」 ${t('0120-82-2306')} に連絡して、ゆうパックで引き渡します。</li><li>買い替えのとき、業者や販売店に頼みます。(事前に確認)</li></ol><p>問い合わせ: 消火器リサイクル推進センター ${t('03-5829-6773')}<br>受付: 午前9時〜午後5時(土日祝日と、正午〜午後1時は除く)</p><p>対象外: エアゾール式消火具(スプレー式)・火災報知器・バッテリー・消防ホース・消火弾 など</p><p class="s">(高萩市公式ページより)</p>`);
+
+  h += X('📺','テレビ・冷蔵庫・エアコン・洗濯機',
+    `<p>市では収集・処分できません。(冷凍庫・衣類乾燥機も同じです)</p><ul><li>買い替えのとき: 新しい製品を買った店に頼みます。</li><li>買い替えないとき: 処分したい製品を買った店に頼みます。</li><li>店に頼めないとき:<br>① 郵便局でリサイクル券を買い、指定引取場所へ持ち込む<br>(近隣: 関東西濃運輸(株)日立支店 日立市神田町字久下沼後1371-1 ${t('0294-54-0111')})<br>② 市内の許可業者に頼む<br>(株)ヤマサエコ.ネットサービス(高萩市高戸262-1) ${t('0293-22-2736')}<br>(株)向洋(北茨城市関南町神岡下219-6) ${t('0293-46-4711')}<br>③ 自宅まで回収に来てもらう<br>SGムービング(株) ${t('0570-056-006')}(土日祝日も 10時〜17時。年末年始は除く)</li></ul><p class="s">令和5年版ガイドブックより</p>`);
+
+  h += X('💻','パソコン',
+    `<p>市では収集・処分できません。(デスクトップ・ノート・液晶ディスプレイ・CRTディスプレイなど)</p><ul><li>メーカーが分かるとき: メーカーに連絡して、回収を申し込みます。PCリサイクルマークのないもの(平成15年9月30日以前に販売)は、リサイクル料金が必要です。</li><li>メーカーがないとき: 一般社団法人 パソコン3R推進協会 ${t('03-5282-7685')} に連絡します。リサイクル料金が必要です。</li><li>宅配便で無料回収: リネットジャパンリサイクル(株) ${t('0570-085-800')}<br>(土日祝日も 10時〜17時。年末年始は除く。1箱分・3辺の合計140cm以内・20kg以内まで無料)</li></ul><p class="s">${kita ? '令和5年版ガイドブックより' : '高萩市公式ページ・令和5年版ガイドブックより'}</p>`);
+
+  h += X('📱','小型家電の回収ボックス',
+    `<p>使い終わった小型家電を入れる回収ボックスです。</p><p><b>場所:</b><br>` + (kita
+      ? '北茨城市役所・南部市民サービスセンター・北部市民サービスセンター・北茨城市立図書館・サンユーストアー中郷店・マルトSC磯原店・サンユーストアー大津店'
+      : '高萩市役所・総合福祉センター・図書館・イオン高萩店・ベイシア高萩モール店・カスミ高萩店(市内6か所)') +
+    `</p><p><b>入れられるもの:</b><br>携帯電話・スマートフォン、電話機・ファクシミリ、ラジオ、デジタルカメラ・ビデオカメラ、映像用機器(DVDビデオ・HDDレコーダー・BDレコーダー・チューナーなど)、音響機器(MD・CDプレーヤー・ICレコーダー・ヘッドフォン・補聴器など)、ハードディスク・USBメモリ・メモリーカード、電子書籍端末、電子辞書・電卓、電子血圧計・電子体温計、理容用機器(ドライヤー・ヘアアイロン・電気カミソリなど)、` + (kita ? '懐中電灯・時計' : '懐中時計・時計') + `、ゲーム機、カー用品、これらの付属品(リモコン・ACアダプタ・ケーブル・充電器など)</p><ul><li>投入口(縦15cm×横30cm)に入るものだけです。</li><li>個人の情報は、消してから入れます。</li><li>電池やバッテリーは外します。(電池は有害・危険ごみへ)</li><li>入れたものは、返してもらえません。</li></ul><p class="s">${kita ? '令和5年版ガイドブックより' : '高萩市公式ページより'}</p>`);
+
+  h += X('🖨️','インクカートリッジの回収',
+    `<p>プリンターメーカー4社(ブラザー・キャノン・エプソン・日本HP)の純正の、使い終わったインクカートリッジを入れる回収箱です。</p><p><b>場所:</b><br>` + (kita
+      ? '北茨城市役所・元気ステーション・北茨城市生涯学習センター(とれふる)・北茨城郵便局・大津郵便局'
+      : '高萩市役所・高萩市総合福祉センター・高萩市中央公民館・高萩市立図書館・高萩郵便局') + `</p><p class="s">令和5年版ガイドブックより</p>`);
+
+  h += X('🩺','在宅医療のごみ',
+    `<p><b>「もやせるごみ」で出せるもの:</b> 針のついていないチューブ・カテーテル、ストーマ袋、腹膜透析パック、栄養剤パック、栄養剤注入器、ペン型自己注射器(針は除く)、紙おむつ など</p><ul><li>中身があれば、必ず捨てます。新聞紙などで包み、ほかのもやせるごみと一緒に、指定ごみ袋に入れて出します。</li><li>紙おむつの汚物は、トイレに流します。</li></ul><p><b>受け取った医療機関・薬局へ返すもの:</b> 往診や訪問診療で使う注射器の針・点滴針などの注射針、針付きのチューブ類、ペン型自己注射器の針・自己穿刺針 など<br>(必ずキャップを付けて、空きびんなど中身の見える容器に保管します)</p><p class="s">令和5年版ガイドブックより</p>`);
+
+  h += X('🛍️','指定ごみ袋・粗大ごみ処理券の値段',
+    `<ul><li>10ℓ用: 60円(10枚入)</li><li>20ℓ用: 120円(10枚入)</li><li>30ℓ用: 180円(10枚入)</li><li>45ℓ用: 270円(10枚入)</li><li>粗大ごみ処理券: 1枚 600円</li></ul><p>袋は、「もやせるごみ」と「もやせないごみ」で同じものです。入れたごみの種類に、チェックを入れます。</p>` + (kita ? '' : '<p>旧高萩市の指定ごみ袋・粗大ごみ処理券も、使えます。</p>') + `<p class="s">令和5年4月からの値段です(税込)。変わっていないか、お店や市でご確認ください。</p>`);
+
+  h += X('🌱','生ごみ処理容器などの補助',
+    kita
+      ? `<p>生ごみ処理容器(コンポストなど)や電動式生ごみ処理機を買うと、補助金が出ます。くわしくは、買う前に、北茨城市 生活環境課 ${t('0293-43-1111')}(内線371)へ聞いてください。</p><p class="s">令和5年版ガイドブックより</p>`
+      : `<p>予算の範囲内で、先着順です。くわしくは、高萩市 環境市民協働課 ${t('0293-23-7031')} へ。</p><ul><li>生ごみ処理容器(コンポストなど): 1基 3千円まで、1世帯2基まで</li><li>発酵促進剤: 買った値段の2分の1(2千円まで)、1年度につき1世帯1回まで</li><li>電動式生ごみ処理機: 買った値段の2分の1(1万5千円まで)、1世帯1基まで</li></ul><p>子ども会などの団体(おおむね20世帯以上・年6か月以上・営利目的でない)が、資源物の集団回収をすると、1kgあたり5円などの補助があります。事前の届出が必要です。</p><p class="s">(高萩市公式ページより)</p>`);
+
+  if (!kita){
+    h += X('🌀','台風など荒天のとき',
+      `<p>原則、いつも通り収集します。できるだけ、次の収集日に出してください。</p><ul><li>警報などが出ているときや、被害の状況によっては、収集の時間が大きく変わったり、中止になったりすることがあります。</li><li>外に出るのが危ないときや、ごみが飛ばされるおそれがあるときは、十分に気をつけて出してください。</li></ul><p class="s">(高萩市公式ページより)</p>`);
+    h += X('🗑️','ごみ集積所の利用登録',
+      `<p>ごみ集積所を使うには、利用者の登録が必要です。</p><ul><li>集積所ごとに「ごみ集積所責任者」がいます。使いたい集積所の責任者に相談します。</li><li>責任者が分からないとき、登録していないときは、高萩市 環境市民協働課(市役所2階)へ。平日の開庁時間内に手続きをします。${t('0293-23-7031')}</li><li>集積所は、使う人たちで管理します。ごみの出し方のルールを守って、きれいに使います。</li></ul><p class="s">(高萩市公式ページより)</p>`);
+  }
+  h += '<div class="small" style="margin-top:14px">電話番号の市外局番(0293など)は、市の公式ページの表記にもとづいて補っています。つながらないときは、市の公式ページでご確認ください。</div>';
+  return h;
+}
+
+/* ================= 画面: せってい ================= */
+function settingsHTML(){
+  let h = backBtn() + '<h1>⚙️ せってい</h1>';
+  h += `<div class="box"><h2>📍 お住まいの場所</h2><div class="cur">${placeLabel()}</div>${A().p ? `<div class="small">${A().p}</div>` : ''}<button class="btn sub" data-go="setup">場所を かえる</button></div>`;
+  h += `<div class="box"><h2>🔊 ボタンの音</h2><div class="seg"><button class="sg${prefs.snd?' on':''}" data-act="snd_on">あり</button><button class="sg${prefs.snd?'':' on'}" data-act="snd_off">なし</button></div></div>`;
+  h += `<div class="box"><h2>🔠 もじの大きさ</h2><div class="seg">${['ふつう','大きい','とても<br>大きい'].map((n,i)=>`<button class="sg${prefs.size===i?' on':''}" data-act="size" data-v="${i}">${n}</button>`).join('')}</div></div>`;
+  if (NATIVE) h += notifyBox();
+  h += `<div class="box"><h2>このアプリについて</h2><div style="font-size:16px;line-height:1.7">「ごみの日(北茨城・高萩)」は、個人が作成した非公式のアプリです。北茨城市・高萩市とは関係ありません。収集日や出し方は、各市の公式の資料をもとにしています。変更や臨時の収集日は、市の公式の案内をご確認ください。</div><footer style="margin-top:10px"><span class="lab">NAGAYAMA LAB</span></footer></div>`;
+  return h;
+}
+
+/* ================= 画面: 年末年始 ================= */
+function nyHTML(){
+  const now = new Date();
+  const yr = (now.getMonth()===0 && now.getDate()<=3) ? now.getFullYear()-1 : now.getFullYear();
+  let h = backBtn() + '<h1>年末年始の ごみ</h1>';
+  h += `<div class="alert" style="margin-top:0">${yr}年12月31日 〜 ${yr+1}年1月3日は、<br>ごみの収集は <u>おやすみ</u> です。</div>`;
+  h += '<div class="box"><h2>高北清掃センター(持ち込み)</h2>12月31日〜1月3日は おやすみです。<br>日曜日も おやすみです。</div>';
+  let l1='', l2='';
+  for (let d=25; d<=30; d++) l1 += dayRow(new Date(yr,11,d));
+  for (let d=4; d<=10; d++) l2 += dayRow(new Date(yr+1,0,d));
+  h += `<div class="box"><h2>年末の収集(${placeLabel()})</h2>${l1}<div class="small" style="margin-top:6px">12月30日が 今年さいごの収集日です。</div></div>`;
+  h += `<div class="box"><h2>年始の収集(${placeLabel()})</h2>${l2}<div class="small" style="margin-top:6px">1月4日から 曜日どおりに 収集します。</div></div>`;
+  h += `<div class="box small">${C().holiday}<br>年末は ごみが多くなります。収集日の朝8時までに出してください。</div>`;
+  return h;
+}
+
+/* ================= 画面: よてい ================= */
+function planHTML(){
+  const now = new Date();
+  let h = backBtn() + '<h1>よてい</h1>';
+  if (st.city==='taka'){
+    h += `<div class="box"><h2>お住まいの場所(地区${st.area+1})</h2><div class="small" style="font-size:17px">${A().p}</div></div>`;
+  }
+  let rows=''; for (let i=0;i<7;i++) rows += dayRow(addDays(now,i));
+  h += `<div class="box"><h2>これから7日間</h2>${rows}</div>`;
+  const legend = C().order.map(k=>`<span class="chip ${T()[k].cls}">${T()[k].short} ${T()[k].label}</span>`).join('');
+  h += `<div class="box"><div class="mh"><button data-act="prev">‹</button><span id="mlabel"></span><button data-act="next">›</button></div><div class="cal" id="cal"></div>
+        <div class="legend">${legend}</div></div>`;
+  if (!window.claude && !NATIVE){
+    h += `<div class="box"><h2>スマホのカレンダーに入れる</h2>
+      <div class="small">1年分のごみの日が入ります。前日の夜7時と、当日の朝6時半に音でお知らせします。ご家族の方が1回設定すれば大丈夫です。</div>
+      <button class="btn" data-act="ics">カレンダーに登録する</button>
+      <div class="small" style="margin-top:8px">※2回押すと二重に入ります。お知らせの音は、スマホの設定で変わることがあります。</div></div>`;
+  }
+  h += `<details class="plain"><summary>出し方のルール</summary><ul>
+      <li>収集日の<b>朝8時まで</b>に、決められたごみ集積所へ。</li>
+      <li>もやせる/もやせないごみは<b>指定袋</b>を使い、どちらかにチェックして氏名を記入。混ぜると収集されません。</li>
+      <li>資源ごみ・有害危険ごみなどは、中身が見える45ℓ以下の透明・半透明袋で。</li>
+      <li>粗大ごみは事前申込制。高北清掃センター 44-8853。</li></ul></details>`;
+  return h;
+}
+function renderCal(){
+  const y = view.getFullYear(), m = view.getMonth();
+  document.getElementById('mlabel').textContent = `${y}年${m+1}月`;
+  const first = new Date(y,m,1).getDay(), last = new Date(y,m+1,0).getDate(), today = new Date();
+  let h = W.map(w=>`<div class="h">${w}</div>`).join('');
+  for (let i=0;i<first;i++) h += '<div class="c e"></div>';
+  for (let d=1; d<=last; d++){
+    const date = new Date(y,m,d), t = collect(date);
+    h += `<div class="c${sameDay(date,today)?' today':''}${t===null?' off':''}"><span class="n">${d}</span>${(t||[]).map(k=>`<i class="${T()[k].cls}">${T()[k].short}</i>`).join('')}</div>`;
+  }
+  document.getElementById('cal').innerHTML = h;
+}
+
+/* ================= 描画・操作 ================= */
+let shown = null;
+function render(){
+  if (!st && screen!=='setup') screen = 'setup';
+  const f = {home:homeHTML, search:searchHTML, plan:planHTML, ny:nyHTML, battery:batteryHTML, contact:contactHTML, extra:extraHTML, danger:dangerHTML, carry:carryHTML, settings:settingsHTML, setup:setupHTML}[screen];
+  const y = window.scrollY || 0, same = (shown === screen);
+  $app.innerHTML = f();
+  if (screen==='plan') renderCal();
+  window.scrollTo(0, same ? y : 0);
+  shown = screen;
+}
+function go(s){
+  if (s==='setup') setup = {step:'city', town:null, city:null};
+  screen = s; render();
+}
+$app.addEventListener('click', e=>{
+  const g = e.target.closest('[data-go]');
+  if (g){ go(g.dataset.go); return; }
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const v = b.dataset.v;
+  switch (b.dataset.act){
+    case 'city':
+      setup.city = v;
+      setup.step = (v==='kita') ? 'town' : 'area';
+      render(); break;
+    case 'town': {
+      const list = CITY.kita.areas.map((a,i)=>i).filter(i=>CITY.kita.areas[i].town===v);
+      if (list.length===1){ st = {city:'kita', area:list[0]}; save(); screen='home'; render(); scheduleNotices(); }
+      else { setup.town=v; setup.step='area'; render(); }
+      break; }
+    case 'area': st = {city:setup.city||'kita', area:+v}; save(); screen='home'; render(); scheduleNotices(); break;
+    case 'setupback': setup.step='city'; setup.city=null; render(); break;
+    case 'towns': setup.step='town'; render(); break;
+    case 'quick': query = v; kana = null; render(); break;
+    case 'kana': kana = (kana===v ? null : v); query = ''; render(); break;
+    case 'clearq': query=''; kana=null; render(); { const q=document.getElementById('q'); if(q) q.focus(); } break;
+    case 'prev': view = new Date(view.getFullYear(), view.getMonth()-1, 1); renderCal(); break;
+    case 'next': view = new Date(view.getFullYear(), view.getMonth()+1, 1); renderCal(); break;
+    case 'ics': downloadICS(); break;
+    case 'hmore': query = hq; kana = null; go('search'); break;
+    case 'hclear': hq = ''; render(); { const q = document.getElementById('hq'); if (q) q.focus(); } break;
+    case 'snd_on': prefs.snd = true; savePrefs(); sfx('ok'); render(); break;
+    case 'snd_off': prefs.snd = false; savePrefs(); render(); break;
+    case 'size': prefs.size = +v; savePrefs(); applySize(); render(); break;
+    case 'ntest': testNotice(); break;
+    case 'non': setNotice(true); break;
+    case 'noff': setNotice(false); break;
+  }
+});
+$app.addEventListener('change', e=>{
+  if (e.target.id==='ntime'){ const [hh,mm] = e.target.value.split(':').map(Number); nf.h=hh; nf.m=mm; saveNf(); scheduleNotices().then(render); }
+});
+$app.addEventListener('input', e=>{
+  if (e.target.id==='hq'){ hq = e.target.value; document.getElementById('hres').innerHTML = homeResultsHTML(); }
+  if (e.target.id==='q'){ query = e.target.value; if (query.trim()) kana = null; document.getElementById('results').innerHTML = resultsHTML(); }
+});
+
+/* ================= カレンダー登録(.ics): 自分のサイトに置いた場合に使えます ================= */
+function fold(line){
+  const enc = new TextEncoder(); let out='', cur='', bytes=0;
+  for (const ch of line){
+    const b = enc.encode(ch).length;
+    if (bytes+b>75){ out += cur+'\r\n'; cur=' '; bytes=1; }
+    cur += ch; bytes += b;
+  }
+  return out+cur;
+}
+const esc = s => s.replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');
+const p2 = n => String(n).padStart(2,'0');
+const ymd = d => `${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}`;
+function buildICS(){
+  const now = new Date(), start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const stamp = `${now.getUTCFullYear()}${p2(now.getUTCMonth()+1)}${p2(now.getUTCDate())}T${p2(now.getUTCHours())}${p2(now.getUTCMinutes())}${p2(now.getUTCSeconds())}Z`;
+  const L = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//kitaibaraki-gomi//JP','CALSCALE:GREGORIAN','X-WR-CALNAME:'+esc(C().name+' ごみの日('+placeLabel()+')')];
+  for (let i=0;i<365;i++){
+    const d = addDays(start,i), t = collect(d);
+    if (!t || !t.length) continue;
+    const names = t.map(k=>T()[k].label).join('と');
+    const desc = t.map(k=>T()[k].label+': '+T()[k].memo).join('\n')+'\n朝8時までに出してください。';
+    L.push('BEGIN:VEVENT',`UID:gomi-${st.city}-${st.area}-${ymd(d)}@kitaibaraki-gomi`,`DTSTAMP:${stamp}`,
+      `DTSTART:${ymd(d)}T063000`,`DTEND:${ymd(d)}T080000`,'SUMMARY:'+esc('ごみの日: '+names),'DESCRIPTION:'+esc(desc),
+      'BEGIN:VALARM','ACTION:DISPLAY','TRIGGER:-PT11H30M','DESCRIPTION:'+esc('あしたの朝は '+names+' の日です'),'END:VALARM',
+      'BEGIN:VALARM','ACTION:DISPLAY','TRIGGER:PT0S','DESCRIPTION:'+esc('きょうは '+names+' の日です(朝8時まで)'),'END:VALARM','END:VEVENT');
+  }
+  L.push('END:VCALENDAR');
+  return L.map(fold).join('\r\n')+'\r\n';
+}
+function downloadICS(){
+  const blob = new Blob([buildICS()], {type:'text/calendar;charset=utf-8'});
+  const url = URL.createObjectURL(blob), link = document.createElement('a');
+  link.href = url; link.download = 'gomi-calendar.ics';
+  document.body.appendChild(link); link.click(); link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 10000);
+}
+
+/* ================= ホーム画面用アイコン ================= */
+(function(){ try{
+  const c = document.createElement('canvas'); c.width = c.height = 180;
+  const g = c.getContext('2d');
+  g.fillStyle = '#1f7a36'; g.fillRect(0,0,180,180);
+  g.fillStyle = '#ffffff'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = 'bold 66px sans-serif'; g.fillText('ごみ',90,74);
+  g.font = 'bold 38px sans-serif'; g.fillText('の日',90,132);
+  const u = c.toDataURL('image/png');
+  ['apple-touch-icon','icon'].forEach(rel=>{ const l=document.createElement('link'); l.rel=rel; l.href=u; document.head.appendChild(l); });
+}catch(e){} })();
+
+/* ================= 日付が変わったら直す ================= */
+let lastKey = new Date().toDateString();
+const refresh = ()=>{ const k = new Date().toDateString(); if (k!==lastKey){ lastKey=k; if (screen==='home') render(); } };
+setInterval(refresh, 30000);
+document.addEventListener('visibilitychange', ()=>{ if (!document.hidden){ refresh(); scheduleNotices(); } });
+
+render();
+scheduleNotices();
+
+/* ===== ホーム画面に入れられるアプリにする(公開サイトに置いたときだけ) ===== */
+if ('serviceWorker' in navigator && /^https?:/.test(location.protocol) && !window.claude && !NATIVE){
+  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('./sw.js').catch(()=>{}); });
+}
+</script>
+</body>
+</html>

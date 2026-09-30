@@ -1,0 +1,17 @@
+{
+  "name": "ごみの日(北茨城・高萩)",
+  "short_name": "ごみの日",
+  "description": "北茨城市・高萩市の、今日のごみの日が ひと目で分かるアプリ(非公式)",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a5560",
+  "theme_color": "#0a5560",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
